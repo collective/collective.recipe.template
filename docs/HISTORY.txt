@@ -1,8 +1,16 @@
 Changelog
 =========
 
-1.0 - 2008-07-04
-----------------
+1.0rc2 - 2008-07-04
+-------------------
+
+* Add a MANIFEST.in with instructions to include docs/, otherwise the package
+  will not install.
+  [wichert]
+
+
+1.0rc1 - 2008-07-04
+-------------------
 
 * Initial release.
   [wichert]

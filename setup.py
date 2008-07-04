@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.0'
+version = '1.0rc2'
 
 setup(name='collective.recipe.template',
       version=version,
@@ -9,9 +9,9 @@ setup(name='collective.recipe.template',
       long_description=open("README.txt").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
       classifiers=[
-        "Classifier: Framework :: Buildout",
-        "Programming Language :: Python",
-        "Topic :: Software Development :: Libraries :: Python Modules",
+          "Framework :: Buildout",
+          "Programming Language :: Python",
+          "Topic :: Software Development :: Libraries :: Python Modules",
         ],
       keywords='',
       author='Wichert Akkerman',
