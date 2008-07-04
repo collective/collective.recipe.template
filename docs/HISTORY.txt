@@ -1,0 +1,9 @@
+Changelog
+=========
+
+1.0 - 2008-07-04
+----------------
+
+* Initial release.
+  [wichert]
+
