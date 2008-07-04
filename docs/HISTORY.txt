@@ -4,6 +4,9 @@ Changelog
 1.0 - Unreleased
 ----------------
 
+* Add missing link in README.
+  [wichert]
+
 
 1.0rc2 - 2008-07-04
 -------------------

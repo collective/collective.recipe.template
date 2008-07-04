@@ -39,4 +39,5 @@ addition this implementation leverages the buildout variable substitution
 code, making it a lot simpler.
 
 
-
+.. _iw.recipe.template: http://pypi.python.org/pypi/iw.recipe.template
+.. _inquant.recipe.textfile: http://pypi.python.org/pypi/inquant.recipe.textfile
