@@ -4,6 +4,10 @@ Changelog
 1.0 - Unreleased
 ----------------
 
+* Copy the mode of the input file to the output file. This makes it possible
+  to create executable scripts.
+  [wichert]
+
 * Add missing link in README.
   [wichert]
 

@@ -1,6 +1,7 @@
 import logging
-import os.path
+import os
 import re
+import stat
 import zc.buildout
 
 class Recipe:
@@ -29,6 +30,7 @@ class Recipe:
 
 
     def install(self):
+        mode=stat.S_IMODE(os.stat(self.input).st_mode)
         source=open(self.input).read()
         template=re.sub(r"\$\{([^:]+)\}", r"${%s:\1}" % self.name, source)
         result=self.options._sub(template, [])
@@ -36,6 +38,8 @@ class Recipe:
         output=open(self.output, "wt")
         output.write(result)
         output.close()
+
+        os.chmod(self.output, mode)
 
         self.options.created(self.output)
         return self.options.created()
