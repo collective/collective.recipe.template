@@ -32,7 +32,7 @@ class Recipe:
     def install(self):
         mode=stat.S_IMODE(os.stat(self.input).st_mode)
         source=open(self.input).read()
-        template=re.sub(r"\$\{([^:]+)\}", r"${%s:\1}" % self.name, source)
+        template=re.sub(r"\$\{([^:]+?)\}", r"${%s:\1}" % self.name, source) 
         result=self.options._sub(template, [])
 
         output=open(self.output, "wt")

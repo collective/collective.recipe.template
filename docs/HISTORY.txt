@@ -1,6 +1,14 @@
 Changelog
 =========
 
+1.1 - 2008-12-09
+----------------
+
+* Correct handling of multiple variables in a line. Bugreport and patch from
+  Roman Susi.
+  [wichert]
+
+
 1.0 - 2008-10-16
 ----------------
 
