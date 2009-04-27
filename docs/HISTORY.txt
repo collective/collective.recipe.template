@@ -1,8 +1,8 @@
 Changelog
-=========
+*********
 
 1.2 - (unreleased)
-------------------
+==================
 
 * Add support for output path creation. You can do::
 
@@ -16,7 +16,7 @@ Changelog
 
 
 1.1 - 2008-12-09
-----------------
+================
 
 * Correct handling of multiple variables in a line. Bugreport and patch from
   Roman Susi.
@@ -24,7 +24,7 @@ Changelog
 
 
 1.0 - 2008-10-16
-----------------
+================
 
 * Copy the mode of the input file to the output file. This makes it possible
   to create executable scripts.
@@ -35,7 +35,7 @@ Changelog
 
 
 1.0rc2 - 2008-07-04
--------------------
+===================
 
 * Add a MANIFEST.in with instructions to include docs/, otherwise the package
   will not install.
@@ -43,7 +43,7 @@ Changelog
 
 
 1.0rc1 - 2008-07-04
--------------------
+===================
 
 * Initial release.
   [wichert]

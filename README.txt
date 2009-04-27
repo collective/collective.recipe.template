@@ -1,11 +1,13 @@
 Introduction
 ************
 
-This recipe can be used to generate textfiles from a (text) template.
-
 This recipe can be used to generate textfiles from a (text)
-template. Starting with version 1.2 you can also specify a path to the
-output file and the path will be created, if it does not exist.
+template.
+
+.. contents::
+
+Starting with version 1.2 you can also specify a path to the output
+file and the path will be created, if it does not exist.
 
 A short example::
 
