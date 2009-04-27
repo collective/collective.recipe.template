@@ -35,6 +35,7 @@ class Recipe:
         template=re.sub(r"\$\{([^:]+?)\}", r"${%s:\1}" % self.name, source) 
         result=self.options._sub(template, [])
 
+        self.createIntermediatePaths(os.path.dirname(self.output))
         output=open(self.output, "wt")
         output.write(result)
         output.close()
@@ -49,4 +50,12 @@ class Recipe:
         # Variables in other parts might have changed so we need to do a
         # full reinstall.
         return self.install()
-        
+
+
+    def createIntermediatePaths(self, path):
+        parent = os.path.dirname(path)
+        if os.path.exists(path) or parent == path:
+            return
+        self.createIntermediatePaths(parent)
+        os.mkdir(path)
+        self.options.created(path)
