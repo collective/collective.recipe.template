@@ -1,7 +1,11 @@
 Introduction
-============
+************
 
 This recipe can be used to generate textfiles from a (text) template.
+
+This recipe can be used to generate textfiles from a (text)
+template. Starting with version 1.2 you can also specify a path to the
+output file and the path will be created, if it does not exist.
 
 A short example::
 
@@ -11,7 +15,7 @@ A short example::
   [message]
   recipe = collective.recipe.template
   input = templates/message.in
-  output = /message
+  output = ${buildout:parts-directory}/etc/message
 
   mymessage = Hello, World!
 
@@ -30,7 +34,7 @@ the current buildout part directly. For example::
 
 
 Why another template recipe?
-----------------------------
+============================
 
 Both `iw.recipe.template`_ and `inquant.recipe.textfile`_ claim to do the
 same thing. I have found them to be undocumented and too buggy for real
