@@ -1,8 +1,8 @@
 Changelog
 *********
 
-1.2 - (unreleased)
-==================
+1.3 - 2009-04-28
+================
 
 * Add support for output path creation. You can do::
 
@@ -14,6 +14,11 @@ Changelog
 * Add tests.
   [ulif]
 
+1.2 - 2008-12-09
+================
+
+(By accident the 1.1 release was marked as 1.2. So in fact they are
+the same.)
 
 1.1 - 2008-12-09
 ================
