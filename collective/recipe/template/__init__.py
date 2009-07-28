@@ -28,16 +28,17 @@ class Recipe:
 
         self.output=options["output"]
 
+        source=open(self.input).read()
+        template=re.sub(r"\$\{([^:]+?)\}", r"${%s:\1}" % name, source)
+        self.result=options._sub(template, [])
+
 
     def install(self):
         mode=stat.S_IMODE(os.stat(self.input).st_mode)
-        source=open(self.input).read()
-        template=re.sub(r"\$\{([^:]+?)\}", r"${%s:\1}" % self.name, source) 
-        result=self.options._sub(template, [])
 
         self.createIntermediatePaths(os.path.dirname(self.output))
         output=open(self.output, "wt")
-        output.write(result)
+        output.write(self.result)
         output.close()
 
         os.chmod(self.output, mode)
