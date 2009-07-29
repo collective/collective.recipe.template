@@ -125,3 +125,68 @@ vanished now::
 
   >>> ls('parts')
   d  foo
+
+
+Substituting variables with options of other parts
+==================================================
+
+When substituting variables in a template, dependencies on other buildout
+parts can occur. Buildout will resolve them by determining the values of those
+other parts' options first. To see this, we create a buildout involving a
+template that uses a variable computed by a part that would not otherwise be
+built:
+
+  >>> write('dummy.py',
+  ... '''
+  ... class Recipe(object):
+  ...
+  ...     def __init__(self, buildout, name, options):
+  ...         options['foo'] = 'bar'
+  ...
+  ...     def install(self):
+  ...         return ()
+  ...
+  ...     def update(self):
+  ...         pass
+  ... ''')
+
+  >>> write('setup.py',
+  ... '''
+  ... from setuptools import setup
+  ...
+  ... setup(name='dummyrecipe',
+  ...       entry_points = {'zc.buildout': ['default = dummy:Recipe']})
+  ... ''')
+
+  >>> write('buildout.cfg',
+  ... '''
+  ... [buildout]
+  ... develop = .
+  ... parts = template
+  ... offline = true
+  ...
+  ... [template]
+  ... recipe = collective.recipe.template
+  ... input = template.in
+  ... output = template
+  ...
+  ... [other]
+  ... recipe = dummyrecipe
+  ... ''')
+
+  >>> write('template.in',
+  ... '''#
+  ... My template knows about another buildout part:
+  ... ${other:foo}
+  ... ''')
+
+  >>> print system(join('bin', 'buildout')),
+  Develop: '/sample-buildout/.'
+  Uninstalling template.
+  Installing other.
+  Installing template.
+
+  >>> cat('template')
+  #
+  My template knows about another buildout part:
+  bar
