@@ -1,8 +1,8 @@
 Changelog
 *********
 
-1.4 - (unreleased)
-==================
+1.4 (2009-07-29)
+================
 
 * Fixed the way variables in templates are substituted to allow buildout to
   determine dependencies on other parts and prepare those correctly. [tlotze]
