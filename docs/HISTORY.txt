@@ -4,7 +4,11 @@ Changelog
 1.5 - unreleased
 ================
 
-- Nothing changed yet.
+* Added support for genshi text templates. Use them with this as the
+  recipe:
+  `recipe = collective.recipe.template[genshi]:genshi`
+  Use a dot between the section name and the option name instead of a colon.
+  [fschulze]
 
 
 1.4 - 2009-07-29

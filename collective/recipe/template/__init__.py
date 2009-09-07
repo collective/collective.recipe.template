@@ -28,9 +28,13 @@ class Recipe:
 
         self.output=options["output"]
 
+        self._execute()
+
+
+    def _execute(self):
         source=open(self.input).read()
-        template=re.sub(r"\$\{([^:]+?)\}", r"${%s:\1}" % name, source)
-        self.result=options._sub(template, [])
+        template=re.sub(r"\$\{([^:]+?)\}", r"${%s:\1}" % self.name, source)
+        self.result=self.options._sub(template, [])
 
 
     def install(self):

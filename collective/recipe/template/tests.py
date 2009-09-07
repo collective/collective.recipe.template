@@ -15,6 +15,7 @@ def setUp(test):
     zc.buildout.testing.buildoutSetUp(test)
     zc.buildout.testing.install_develop('collective.recipe.template', test)
     zc.buildout.testing.install('zope.testing', test)
+    zc.buildout.testing.install('Genshi', test)
 
 
 checker = renormalizing.RENormalizing([
@@ -27,11 +28,14 @@ checker = renormalizing.RENormalizing([
 
 
 def test_suite():
-    return unittest.TestSuite(
+    return unittest.TestSuite([
         doctest.DocFileSuite('README.txt',
             setUp=setUp, tearDown=zc.buildout.testing.buildoutTearDown,
             optionflags=doctest.ELLIPSIS, checker=checker),
-        )
+        doctest.DocFileSuite('genshitemplate.txt',
+            setUp=setUp, tearDown=zc.buildout.testing.buildoutTearDown,
+            optionflags=doctest.ELLIPSIS, checker=checker),
+        ])
 
 
 if __name__ == '__main__':

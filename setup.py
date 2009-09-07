@@ -29,11 +29,13 @@ setup(name='collective.recipe.template',
           'zc.buildout',
       ],
       extras_require=dict(
-        test = ['zope.testing',]
+        test = ['zope.testing',],
+        genshi = ['Genshi',],
         ),
             
       entry_points="""
       [zc.buildout]
       default = collective.recipe.template:Recipe
+      genshi = collective.recipe.template.genshitemplate:Recipe
       """,
       )
