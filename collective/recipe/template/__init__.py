@@ -40,8 +40,10 @@ class Recipe:
         self.result=options._sub(template, [])
 
     def install(self):
-        mode=stat.S_IMODE(os.stat(self.input).st_mode)
-
+        try:
+            mode=stat.S_IMODE(os.stat(self.input).st_mode)
+        except:
+            mode=0644
         self.createIntermediatePaths(os.path.dirname(self.output))
         output=open(self.output, "wt")
         output.write(self.result)
