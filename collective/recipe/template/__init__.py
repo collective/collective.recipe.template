@@ -3,6 +3,7 @@ import os
 import re
 import stat
 import zc.buildout
+import urllib
 
 class Recipe:
     def __init__(self, buildout, name, options):
@@ -25,7 +26,7 @@ class Recipe:
         source = None
 
         if self.input.startswith('http://'):
-            source = urllib.urlopen(url).read()
+            source = urllib.urlopen(self.input).read()
 
         if os.path.exists(self.input):
             source=open(self.input).read()
