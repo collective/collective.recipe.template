@@ -19,19 +19,24 @@ class Recipe:
             self.logger.error("No output file specified.")
             raise zc.buildout.UserError("No output file specified.")
 
-
         self.input=options["input"]
-        if not os.path.exists(self.input):
-            msg="Input file '%s' does not exist." % self.input
+        self.output=options["output"]
+
+        source = None
+
+        if self.input.startswith('http://'):
+            source = urllib.urlopen(url).read()
+
+        if os.path.exists(self.input):
+            source=open(self.input).read()
+
+        if source is None:
+            msg="Input file or url '%s' does not exist." % self.input
             self.logger.error(msg)
             raise zc.buildout.UserError(msg)
 
-        self.output=options["output"]
-
-        source=open(self.input).read()
         template=re.sub(r"\$\{([^:]+?)\}", r"${%s:\1}" % name, source)
         self.result=options._sub(template, [])
-
 
     def install(self):
         mode=stat.S_IMODE(os.stat(self.input).st_mode)
