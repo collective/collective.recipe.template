@@ -88,7 +88,7 @@ specified manually, which especially makes sense in this case:
   ...    #!/bin/bash
   ...    echo foo
   ... output = ${buildout:parts-directory}/template
-  ... mode = 493
+  ... mode = 755
   ... ''')
 
 Run buildout again ::
@@ -101,8 +101,8 @@ The template should have the specified file mode::
 
   >>> from os import stat
   >>> from stat import S_IMODE
-  >>> S_IMODE(stat('parts/template').st_mode)
-  493
+  >>> print '%o' % S_IMODE(stat('parts/template').st_mode)
+  755
 
 
 Creating a template in a variable path

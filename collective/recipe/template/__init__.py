@@ -35,7 +35,7 @@ class Recipe:
         template=re.sub(r"\$\{([^:]+?)\}", r"${%s:\1}" % name, source)
         self.result=options._sub(template, [])
         if "mode" in options:
-            self.mode=int(options["mode"])
+            self.mode=int(options["mode"], 8)
 
 
     def install(self):

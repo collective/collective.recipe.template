@@ -4,6 +4,8 @@ Changelog
 1.6 - unreleased
 ================
 
+* Output file mode is now assumed to be octal, like chmod.
+  [elro]
 
 1.5 - 2010-02-23
 ================
