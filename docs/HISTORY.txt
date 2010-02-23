@@ -31,6 +31,7 @@ Changelog
 * Add tests.
   [ulif]
 
+
 1.2 - 2008-12-09
 ================
 
@@ -69,4 +70,3 @@ the same.)
 
 * Initial release.
   [wichert]
-
