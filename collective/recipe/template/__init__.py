@@ -21,12 +21,17 @@ class Recipe:
 
         self.output=options["output"]
         self.input=options["input"]
-        if not os.path.exists(self.input):
-            source=self.input
-            self.mode=None
-        else:
+        if os.path.exists(self.input):
             source=open(self.input).read()
             self.mode=stat.S_IMODE(os.stat(self.input).st_mode)
+        elif self.input.startswith('inline:'):
+            source=self.input[len('inline:'):].lstrip()
+            self.mode=None
+        else:
+            msg="Input file '%s' does not exist." % self.input 
+            self.logger.error(msg) 
+            raise zc.buildout.UserError(msg)
+
         template=re.sub(r"\$\{([^:]+?)\}", r"${%s:\1}" % name, source)
         self.result=options._sub(template, [])
         if "mode" in options:

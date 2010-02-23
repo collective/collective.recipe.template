@@ -55,7 +55,8 @@ For very short script it can make sense to put the source directly into
   ...
   ... [template]
   ... recipe = collective.recipe.template
-  ... input = #!/bin/bash
+  ... input = inline:
+  ...    #!/bin/bash
   ...    echo foo
   ... output = ${buildout:parts-directory}/template
   ... ''')
@@ -83,7 +84,8 @@ specified manually, which especially makes sense in this case:
   ...
   ... [template]
   ... recipe = collective.recipe.template
-  ... input = #!/bin/bash
+  ... input = inline:
+  ...    #!/bin/bash
   ...    echo foo
   ... output = ${buildout:parts-directory}/template
   ... mode = 493
