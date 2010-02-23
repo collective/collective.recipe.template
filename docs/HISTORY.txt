@@ -1,7 +1,7 @@
 Changelog
 *********
 
-1.5 - unreleased
+1.5 - 2010-02-23
 ================
 
 * Add support for explicitly setting the output file mode.
