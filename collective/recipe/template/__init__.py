@@ -11,8 +11,8 @@ class Recipe:
         self.options=options
         self.logger=logging.getLogger(self.name)
 
-        if "input" not in options:
-            self.logger.error("No input file specified.")
+        if "input" not in options and "inline" not in options:
+            self.logger.error("No input file or inline template specified.")
             raise zc.buildout.UserError("No input file specified.")
 
         if "output" not in options:
@@ -20,8 +20,12 @@ class Recipe:
             raise zc.buildout.UserError("No output file specified.")
 
         self.output=options["output"]
-        self.input=options["input"]
-        if os.path.exists(self.input):
+        self.input=options.get("input")
+        self.inline=options.get("inline")
+        if "inline" in options:
+            source = self.inline.lstrip()
+            self.mode = None
+        elif os.path.exists(self.input):
             source=open(self.input).read()
             self.mode=stat.S_IMODE(os.stat(self.input).st_mode)
         elif self.input.startswith('inline:'):
@@ -44,7 +48,7 @@ class Recipe:
         output.write(self.result)
         output.close()
 
-        if self.mode:
+        if self.mode is not None:
             os.chmod(self.output, self.mode)
 
         self.options.created(self.output)

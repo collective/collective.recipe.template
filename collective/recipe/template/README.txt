@@ -84,7 +84,7 @@ specified manually, which especially makes sense in this case:
   ...
   ... [template]
   ... recipe = collective.recipe.template
-  ... input = inline:
+  ... inline =
   ...    #!/bin/bash
   ...    echo foo
   ... output = ${buildout:parts-directory}/template
