@@ -4,6 +4,9 @@ Changelog
 1.5 - unreleased
 ================
 
+* Add support for explicitly setting the output file mode.
+  [witsch]
+
 * Add support for inline templates.
   [witsch]
 

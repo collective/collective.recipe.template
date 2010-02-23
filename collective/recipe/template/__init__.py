@@ -29,6 +29,8 @@ class Recipe:
             self.mode=stat.S_IMODE(os.stat(self.input).st_mode)
         template=re.sub(r"\$\{([^:]+?)\}", r"${%s:\1}" % name, source)
         self.result=options._sub(template, [])
+        if "mode" in options:
+            self.mode=int(options["mode"])
 
 
     def install(self):

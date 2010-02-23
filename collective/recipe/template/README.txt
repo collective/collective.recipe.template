@@ -72,6 +72,36 @@ The template should have been created::
   #!/bin/bash
   echo foo
 
+Normally the file mode gets copied from the template, but it can also be
+specified manually, which especially makes sense in this case:
+
+  >>> write('buildout.cfg',
+  ... '''
+  ... [buildout]
+  ... parts = template
+  ... offline = true
+  ...
+  ... [template]
+  ... recipe = collective.recipe.template
+  ... input = #!/bin/bash
+  ...    echo foo
+  ... output = ${buildout:parts-directory}/template
+  ... mode = 493
+  ... ''')
+
+Run buildout again ::
+
+  >>> print system(join('bin', 'buildout')),
+  Uninstalling template.
+  Installing template.
+
+The template should have the specified file mode::
+
+  >>> from os import stat
+  >>> from stat import S_IMODE
+  >>> S_IMODE(stat('parts/template').st_mode)
+  493
+
 
 Creating a template in a variable path
 ======================================
