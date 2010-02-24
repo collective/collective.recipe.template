@@ -1,7 +1,7 @@
 Changelog
 *********
 
-1.6 - unreleased
+1.6 - 2010-02-24
 ================
 
 * Output file mode is now assumed to be octal, like chmod.
@@ -9,6 +9,7 @@ Changelog
 
 * Inline template can now be specified with the inline option.
   [elro]
+
 
 1.5 - 2010-02-23
 ================
