@@ -36,21 +36,20 @@ class Recipe:
             self.logger.error(msg) 
             raise zc.buildout.UserError(msg)
 
-        self._execute()
-
         if "mode" in options:
             self.mode=int(options["mode"], 8)
 
 
     def _execute(self):
         template=re.sub(r"\$\{([^:]+?)\}", r"${%s:\1}" % self.name, self.source)
-        self.result=self.options._sub(template, [])
+        return self.options._sub(template, [])
 
 
     def install(self):
+        result = self._execute()
         self.createIntermediatePaths(os.path.dirname(self.output))
         output=open(self.output, "wt")
-        output.write(self.result)
+        output.write(result)
         output.close()
 
         if self.mode is not None:

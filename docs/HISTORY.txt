@@ -4,6 +4,8 @@ Changelog
 1.8 - Unreleased
 ================
 
+* Import genshi modules very late to prevent issues with zc.buildout.
+  [fschulze]
 
 
 1.7 - 2010-05-21
