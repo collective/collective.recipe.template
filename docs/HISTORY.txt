@@ -1,7 +1,7 @@
 Changelog
 *********
 
-1.7 - Unreleased
+1.7 - 2010-05-21
 ================
 
 * Added support for genshi text templates. Use them with this as the
