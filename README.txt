@@ -40,7 +40,7 @@ Genshi text templates
 
 Starting with version 1.7 you can use `genshi text templates`_.
 
-A short example:
+A short example::
 
   [buildout]
   parts = message
