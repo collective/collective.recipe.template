@@ -23,23 +23,28 @@ class Recipe:
         self.input=options.get("input")
         self.inline=options.get("inline")
         if "inline" in options:
-            source = self.inline.lstrip()
+            self.source = self.inline.lstrip()
             self.mode = None
         elif os.path.exists(self.input):
-            source=open(self.input).read()
+            self.source=open(self.input).read()
             self.mode=stat.S_IMODE(os.stat(self.input).st_mode)
         elif self.input.startswith('inline:'):
-            source=self.input[len('inline:'):].lstrip()
+            self.source=self.input[len('inline:'):].lstrip()
             self.mode=None
         else:
             msg="Input file '%s' does not exist." % self.input 
             self.logger.error(msg) 
             raise zc.buildout.UserError(msg)
 
-        template=re.sub(r"\$\{([^:]+?)\}", r"${%s:\1}" % name, source)
-        self.result=options._sub(template, [])
+        self._execute()
+
         if "mode" in options:
             self.mode=int(options["mode"], 8)
+
+
+    def _execute(self):
+        template=re.sub(r"\$\{([^:]+?)\}", r"${%s:\1}" % self.name, self.source)
+        self.result=self.options._sub(template, [])
 
 
     def install(self):
