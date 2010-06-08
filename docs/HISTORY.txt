@@ -4,6 +4,12 @@ Changelog
 1.8 - Unreleased
 ================
 
+* WARNING! Backward incompatible change for Genshi templates.
+  It wasn't possible to access parts with a dash in the name, so now you have
+  to use ${parts.partname} or ${parts['part-name']}. In addition it is now
+  possible to access the current part with ``options``.
+  [fschulze]
+
 * Import genshi modules very late to prevent issues with zc.buildout.
   [fschulze]
 

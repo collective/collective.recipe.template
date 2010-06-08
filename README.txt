@@ -49,15 +49,21 @@ A short example::
   recipe = collective.recipe.template[genshi]:genshi
   input = templates/message.in
   output = ${buildout:parts-directory}/etc/message
+  some-option = value
 
   mymessage = Hello, World!
 
 In the template you can use the exact same variables as you can use
-in the buildout configuration, but you have to use dots instead of colons
-as the separator. For example an input file can look like this::
+in the buildout configuration, but instead of colons as the separator you
+either have to use attribute access, or for options with a dash dictionary
+syntax. The global buildout config is accessible through ``parts``, the
+current part through ``options``.
 
-  My top level directory is ${buildout.directory}
-  Executables are stored in ${buildout.bin-directory}
+For example an input file can look like this::
+
+  My top level directory is ${parts.buildout.directory}
+  Executables are stored in ${parts.buildout['bin-directory']}
+  Accessing the current part: ${options['some-option']}
 
 
 Why another template recipe?

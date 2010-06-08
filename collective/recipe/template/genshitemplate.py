@@ -1,16 +1,15 @@
+import zc.buildout
 from collective.recipe.template import Recipe as Base
 
 
 class Recipe(Base):
     def _execute(self):
         from genshi.template import Context, NewTextTemplate
-        from genshi.template.base import deque
-
-        class MyContext(Context):
-            def __init__(self, *args):
-                self.frames = deque(args)
-                self.pop = self.frames.popleft
-                self.push = self.frames.appendleft
+        from genshi.template.eval import UndefinedError
 
         template = NewTextTemplate(self.source)
-        self.result = template.generate(MyContext(self.buildout)).render()
+        context = Context(parts=self.buildout, options=self.options)
+        try:
+            self.result = template.generate(context).render()
+        except UndefinedError, e:
+            raise zc.buildout.UserError("Error in template %s:\n%s" % (self.input, e.msg))

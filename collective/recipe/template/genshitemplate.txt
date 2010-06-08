@@ -16,6 +16,7 @@ Lets create a minimal `buildout.cfg` file::
   ... recipe = collective.recipe.template[genshi]:genshi
   ... input = template.in
   ... output = template
+  ... some-option = value
   ... ''')
 
 We create a template file::
@@ -23,9 +24,13 @@ We create a template file::
   >>> write('template.in',
   ... '''#
   ... My template knows about buildout path:
-  ...   ${buildout.directory}
+  ...   ${parts.buildout.directory}
   ... You can also write bash/zsh variable expansions by doubling the dollar
   ... sign like this: $${SOME_VARIABLE}
+  ... To access options with a dash, use dictionary access:
+  ...   ${parts.buildout['bin-directory']}
+  ... To access the current part, use ``options``:
+  ...   ${options['some-option']}
   ... ''')
 
 Now we can run buildout::
@@ -41,5 +46,9 @@ The template was indeed created::
   .../sample-buildout
   You can also write bash/zsh variable expansions by doubling the dollar
   sign like this: ${SOME_VARIABLE}
+  To access options with a dash, use dictionary access:
+  .../sample-buildout/bin
+  To access the current part, use ``options``:
+    value
 
 The variable ``buildout:directory`` was also substituted by a path.
