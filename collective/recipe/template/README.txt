@@ -254,3 +254,75 @@ built:
   #
   My template knows about another buildout part:
   bar
+  
+  
+############################################
+Substituting variables with a command output
+============================================
+
+When a buildout file is used on a lot of servers and system informations is
+the only thing that change, we can execute shell commands and get the output 
+back into the template.
+Every command option name have to start with the prefix 'cmd_', like 
+'cmd_unique_name' and need a corresponding output option named 
+'cmd_unique_name_output'. The output option will be used in the template and 
+don't need a value, because it's value is overwritten with the output of the 
+command, but have to be defined.
+
+  >>> write('dummy.py',
+  ... '''
+  ... class Recipe(object):
+  ...
+  ...     def __init__(self, buildout, name, options):
+  ...         options['foo'] = 'bar'
+  ...
+  ...     def install(self):
+  ...         return ()
+  ...
+  ...     def update(self):
+  ...         pass
+  ... ''')
+
+  >>> write('setup.py',
+  ... '''
+  ... from setuptools import setup
+  ...
+  ... setup(name='dummyrecipe',
+  ...       entry_points = {'zc.buildout': ['default = dummy:Recipe']})
+  ... ''')
+
+  >>> write('buildout.cfg',
+  ... '''
+  ... [buildout]
+  ... develop = .
+  ... parts = template
+  ... offline = true
+  ...
+  ... [template]
+  ... recipe = collective.recipe.template
+  ... input = template.in
+  ... output = template
+  ... cmd_echo_hello = echo '"The shell says: hello."'
+  ... cmd_echo_hello_output =
+  ... cmd_echo_something_else = echo '"The shell says: something else."'
+  ... cmd_echo_something_else_output =
+  ... ''')
+
+  >>> write('template.in',
+  ... '''#
+  ... I can listen to a shell:
+  ... ${template:cmd_echo_hello_output}
+  ... ${template:cmd_echo_something_else_output}
+  ... ''')
+
+  >>> print system(join('bin', 'buildout')),
+  Develop: '/sample-buildout/.'
+  Uninstalling template.
+  Uninstalling other.
+  Installing template.
+
+  >>> cat('template')
+  #
+  I can listen to a shell:
+  "The shell says: hello."
+  "The shell says: something else."

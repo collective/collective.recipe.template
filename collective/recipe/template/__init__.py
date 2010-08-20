@@ -36,16 +36,37 @@ class Recipe:
             self.logger.error(msg) 
             raise zc.buildout.UserError(msg)
 
+        self.cmds = {}
+        for key in self.options.keys():
+            if key.startswith('cmd_'):
+                output_key = '%s_output' % key
+                if output_key in self.options:
+                    self.cmds[output_key] = self.options.get(key).strip()
+
         self._execute()
 
         if "mode" in options:
             self.mode=int(options["mode"], 8)
 
-
     def _execute(self):
+        if self.cmds:
+            for key in self.cmds.keys():
+                self.options[key] = self._execute_cmd(self.cmds[key])
         template=re.sub(r"\$\{([^:]+?)\}", r"${%s:\1}" % self.name, self.source)
         self.result=self.options._sub(template, [])
 
+    def _execute_cmd(self, cmd):
+        if not cmd:
+            return 'Empty command, no output generated.'
+        import subprocess
+        process = subprocess.Popen([cmd],
+                                   shell=True,
+                                   stdout=subprocess.PIPE,
+                                   stderr=subprocess.PIPE)
+        out, err = process.communicate()
+        if err:
+            return "Error '%s' for command '%s'." % (err.strip(), self.cmd)
+        return out.strip()
 
     def install(self):
         self.createIntermediatePaths(os.path.dirname(self.output))
