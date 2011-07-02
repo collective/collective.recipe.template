@@ -3,7 +3,6 @@ import os
 import re
 import stat
 import zc.buildout
-import urllib
 
 class Recipe:
     def __init__(self, buildout, name, options):
@@ -12,44 +11,50 @@ class Recipe:
         self.options=options
         self.logger=logging.getLogger(self.name)
 
-        if "input" not in options:
-            self.logger.error("No input file specified.")
+        if "input" not in options and "inline" not in options:
+            self.logger.error("No input file or inline template specified.")
             raise zc.buildout.UserError("No input file specified.")
 
         if "output" not in options:
             self.logger.error("No output file specified.")
             raise zc.buildout.UserError("No output file specified.")
 
-        self.input=options["input"]
         self.output=options["output"]
-
-        source = None
-
-        if self.input.startswith('http://'):
-            source = urllib.urlopen(self.input).read()
-
-        if os.path.exists(self.input):
-            source=open(self.input).read()
-
-        if source is None:
-            msg="Input file or url '%s' does not exist." % self.input
-            self.logger.error(msg)
+        self.input=options.get("input")
+        self.inline=options.get("inline")
+        if "inline" in options:
+            self.source = self.inline.lstrip()
+            self.mode = None
+        elif os.path.exists(self.input):
+            self.source=open(self.input).read()
+            self.mode=stat.S_IMODE(os.stat(self.input).st_mode)
+        elif self.input.startswith('inline:'):
+            self.source=self.input[len('inline:'):].lstrip()
+            self.mode=None
+        else:
+            msg="Input file '%s' does not exist." % self.input 
+            self.logger.error(msg) 
             raise zc.buildout.UserError(msg)
 
-        template=re.sub(r"\$\{([^:]+?)\}", r"${%s:\1}" % name, source)
-        self.result=options._sub(template, [])
+        self._execute()
+
+        if "mode" in options:
+            self.mode=int(options["mode"], 8)
+
+
+    def _execute(self):
+        template=re.sub(r"\$\{([^:]+?)\}", r"${%s:\1}" % self.name, self.source)
+        self.result=self.options._sub(template, [])
+
 
     def install(self):
-        try:
-            mode=stat.S_IMODE(os.stat(self.input).st_mode)
-        except:
-            mode=0644
         self.createIntermediatePaths(os.path.dirname(self.output))
         output=open(self.output, "wt")
         output.write(self.result)
         output.close()
 
-        os.chmod(self.output, mode)
+        if self.mode is not None:
+            os.chmod(self.output, self.mode)
 
         self.options.created(self.output)
         return self.options.created()

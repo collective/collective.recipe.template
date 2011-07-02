@@ -1,10 +1,52 @@
 Changelog
 *********
 
-1.5 - unreleased
+1.9 - Unreleased
 ================
 
-- Nothing changed yet.
+
+
+1.8 - 2010-06-08
+================
+
+* WARNING! Backward incompatible change for Genshi templates.
+  It wasn't possible to access parts with a dash in the name, so now you have
+  to use ${parts.partname} or ${parts['part-name']}. In addition it is now
+  possible to access the current part with ``options``.
+  [fschulze]
+
+* Import genshi modules very late to prevent issues with zc.buildout.
+  [fschulze]
+
+
+1.7 - 2010-05-21
+================
+
+* Added support for genshi text templates. Use them with this as the
+  recipe:
+  `recipe = collective.recipe.template[genshi]:genshi`
+  Use a dot between the section name and the option name instead of a colon.
+  [fschulze]
+
+
+1.6 - 2010-02-24
+================
+
+* Output file mode is now assumed to be octal, like chmod.
+  [elro]
+
+* Inline template can now be specified with the inline option.
+  [elro]
+
+
+1.5 - 2010-02-23
+================
+
+* Add support for explicitly setting the output file mode.
+  [witsch]
+
+* Add support for inline templates.
+  [witsch]
 
 
 1.4 - 2009-07-29
@@ -26,6 +68,7 @@ Changelog
 
 * Add tests.
   [ulif]
+
 
 1.2 - 2008-12-09
 ================
@@ -65,4 +108,3 @@ the same.)
 
 * Initial release.
   [wichert]
-
