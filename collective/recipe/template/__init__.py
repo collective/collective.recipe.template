@@ -54,7 +54,7 @@ class Recipe:
     def _urlcheck(self):
         try:
             urllib2.urlopen(self.input)
-        except urllib2.HTTPError:
+        except (urllib2.HTTPError, urllib2.URLError):
             return False
         return True
 
