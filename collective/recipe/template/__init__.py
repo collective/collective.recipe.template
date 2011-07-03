@@ -23,13 +23,14 @@ class Recipe:
         self.output=options["output"]
         self.input=options.get("input")
         self.inline=options.get("inline")
+        
         if "inline" in options:
             self.source = self.inline.lstrip()
             self.mode = None
         elif os.path.exists(self.input):
             self.source=open(self.input).read()
             self.mode=stat.S_IMODE(os.stat(self.input).st_mode)
-        elif self._urlcheck:
+        elif self._urlcheck():
             self.source = urllib2.urlopen(self.input).read()
             self.mode=None
         elif self.input.startswith('inline:'):
