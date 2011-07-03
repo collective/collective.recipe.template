@@ -2,6 +2,7 @@ import logging
 import os
 import re
 import stat
+import urllib2
 import zc.buildout
 
 class Recipe:
@@ -28,6 +29,9 @@ class Recipe:
         elif os.path.exists(self.input):
             self.source=open(self.input).read()
             self.mode=stat.S_IMODE(os.stat(self.input).st_mode)
+        elif self._checkurl():
+            self.source = self.input.read()
+            self.mode=None
         elif self.input.startswith('inline:'):
             self.source=self.input[len('inline:'):].lstrip()
             self.mode=None
@@ -46,6 +50,12 @@ class Recipe:
         template=re.sub(r"\$\{([^:]+?)\}", r"${%s:\1}" % self.name, self.source)
         self.result=self.options._sub(template, [])
 
+    def _checkurl(self):
+        try:
+            self.input = urllib2.urlopen(self.input)
+        except (urllib2.HTTPError, urllib2.URLError, ValueError):
+            return False
+        return True
 
     def install(self):
         self.createIntermediatePaths(os.path.dirname(self.output))
