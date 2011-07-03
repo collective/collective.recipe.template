@@ -29,7 +29,7 @@ class Recipe:
         elif os.path.exists(self.input):
             self.source=open(self.input).read()
             self.mode=stat.S_IMODE(os.stat(self.input).st_mode)
-        elif _urlcheck:
+        elif self._urlcheck:
             self.source = urllib2.urlopen(self.input).read()
             self.mode=None
         elif self.input.startswith('inline:'):
