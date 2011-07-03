@@ -11,6 +11,7 @@ class Recipe:
         self.name=name
         self.options=options
         self.logger=logging.getLogger(self.name)
+        self.msg = None
 
         if "input" not in options and "inline" not in options:
             self.logger.error("No input file or inline template specified.")
@@ -36,7 +37,11 @@ class Recipe:
             self.source=self.input[len('inline:'):].lstrip()
             self.mode=None
         else:
-            msg="Input file '%s' does not exist." % self.input 
+            # If the error is not from urllib2
+            if self.msg == None:
+                msg="Input file '%s' does not exist." % self.input 
+            else:
+                msg = self.msg
             self.logger.error(msg) 
             raise zc.buildout.UserError(msg)
 
@@ -52,8 +57,15 @@ class Recipe:
 
     def _checkurl(self):
         try:
-            self.input = urllib2.urlopen(self.input)
-        except (urllib2.HTTPError, urllib2.URLError, ValueError):
+            self.input = urllib2.urlopen(self.input, timeout=1)
+        except urllib2.HTTPError, error:
+            self.msg = error
+            return False
+        except urllib2.URLError, error:
+            self.msg = error
+            return False
+        except ValueError, error:
+            self.msg = error
             return False
         return True
 
