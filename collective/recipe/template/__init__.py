@@ -13,32 +13,38 @@ class Recipe:
         self.logger=logging.getLogger(self.name)
         self.msg = None
 
-        if "input" not in options and "inline" not in options:
-            self.logger.error("No input file or inline template specified.")
-            raise zc.buildout.UserError("No input file specified.")
+        if "input" not in options and "inline" not in options and "url" not in options:
+            self.logger.error("No input file, inline template, or URL specified.")
+            raise zc.buildout.UserError("No input file, inline template, or URL specified.")
 
         if "output" not in options:
             self.logger.error("No output file specified.")
             raise zc.buildout.UserError("No output file specified.")
 
+        if ("input" in options and "inline" in options or
+            "input" in options and "url" in options):
+            self.logger.error("Too many input sources.")
+            raise zc.buildout.UserError("Too many input sources.")
+
         self.output=options["output"]
         self.input=options.get("input")
         self.inline=options.get("inline")
+        self.url = options.get("url")
         if "inline" in options:
             self.source = self.inline.lstrip()
             self.mode = None
-        elif os.path.exists(self.input):
+        elif "input" in options and os.path.exists(self.input):
             self.source=open(self.input).read()
             self.mode=stat.S_IMODE(os.stat(self.input).st_mode)
-        elif self._checkurl():
-            self.source = self.input.read()
-            self.mode=None
-        elif self.input.startswith('inline:'):
+        elif "input" in options and self.input.startswith('inline:'):
             self.source=self.input[len('inline:'):].lstrip()
+            self.mode=None
+        elif "url" in options and self._checkurl():
+            self.source = self.url.read()
             self.mode=None
         else:
             # If the error is not from urllib2
-            if self.msg == None:
+            if self.url == None:
                 msg="Input file '%s' does not exist." % self.input 
             else:
                 msg = self.msg
@@ -57,7 +63,7 @@ class Recipe:
 
     def _checkurl(self):
         try:
-            self.input = urllib2.urlopen(self.input, timeout=1)
+            self.url = urllib2.urlopen(self.url, timeout=1)
         except urllib2.HTTPError, error:
             self.msg = error
             return False

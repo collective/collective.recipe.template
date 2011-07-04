@@ -113,11 +113,10 @@ Similarly, you may want to read input from a URL, e.g.::
   ... '''
   ... [buildout]
   ... parts = template
-  ... offline = true
   ...
   ... [template]
   ... recipe = collective.recipe.template
-  ... input = file:///tmp/template.in
+  ... url = file:///tmp/template.in
   ... output = template
   ... ''')
 
