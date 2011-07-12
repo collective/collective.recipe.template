@@ -104,6 +104,42 @@ The template should have the specified file mode::
   >>> print '%o' % S_IMODE(stat('parts/template').st_mode)
   755
 
+Using URL input
+===============
+
+Similarly, you may want to read input from a URL, e.g.::
+
+  >>> write('buildout.cfg',
+  ... '''
+  ... [buildout]
+  ... parts = template
+  ...
+  ... [template]
+  ... recipe = collective.recipe.template
+  ... url = file:///tmp/template.in
+  ... output = template
+  ... ''')
+
+To demonstrate this, first we create a template file::
+
+  >>> write('/tmp/template.in',
+  ... '''#
+  ... My template knows about buildout path:
+  ...   ${buildout:directory}
+  ... ''')
+
+Now we can run buildout::
+
+  >>> print system(join('bin', 'buildout')),
+  Uninstalling template.
+  Installing template.
+
+The template should have been created::
+
+  >>> cat('template')
+  #
+  My template knows about buildout path:
+  .../sample-buildout
 
 Creating a template in a variable path
 ======================================
