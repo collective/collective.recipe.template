@@ -141,6 +141,9 @@ The template should have been created::
   My template knows about buildout path:
   .../sample-buildout
 
+.. Warning:: There is a security risk inherent with using URL input.
+    Please be careful.
+
 Creating a template in a variable path
 ======================================
 

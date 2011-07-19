@@ -1,10 +1,10 @@
 Changelog
 *********
 
-1.9 - Unreleased
+1.9 - 2011-06-19
 ================
 
-* Add URL input support
+* Add support for URL input. Use ``url =`` instead of ``input =``.
   [aclark]
 
 
