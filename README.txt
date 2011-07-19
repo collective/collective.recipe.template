@@ -36,7 +36,7 @@ Features
 ========
 
 * Starting with version 1.3, you can also specify a path to the output
-  file and the path will be created, if it does not exist.
+  file and the path will be created if it does not exist.
 * Starting with version 1.5, you can use inline templates.
 * Starting with version 1.7, you can use `genshi text templates`_.
 * Starting with version 1.9, you can use a URL to specify template input.
