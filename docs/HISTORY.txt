@@ -4,7 +4,8 @@ Changelog
 1.9 - 2011-06-19
 ================
 
-* Add support for URL input. Use ``url =`` instead of ``input =``.
+* Add support for URL input. Use ``url =`` (instead of ``input =``) to specify
+  URL.
   [aclark]
 
 
