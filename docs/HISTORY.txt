@@ -1,11 +1,16 @@
 Changelog
 *********
 
+1.11 - Unreleased
+=================
+
+
 1.10 - 2012-02-26
 =================
 
 * Add Python 3 support using 2to3 flag in setup.
   [mitchellrj]
+
 
 1.9 - 2011-06-19
 ================
