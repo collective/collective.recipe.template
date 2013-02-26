@@ -21,7 +21,7 @@ setup(name='collective.recipe.template',
       url='http://pypi.python.org/pypi/collective.recipe.template',
       license='BSD',
       packages=find_packages(exclude=['ez_setup']),
-      namespace_packages=['collective', 'collective.recipe' ],
+      namespace_packages=['collective', 'collective.recipe'],
       include_package_data=True,
       zip_safe=False,
       install_requires=[
@@ -29,10 +29,9 @@ setup(name='collective.recipe.template',
           'zc.buildout',
       ],
       extras_require=dict(
-        test = ['zope.testing',],
-        genshi = ['Genshi',],
+        test=['zope.testing'],
+        genshi=['Genshi'],
         ),
-            
       entry_points="""
       [zc.buildout]
       default = collective.recipe.template:Recipe
