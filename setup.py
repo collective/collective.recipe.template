@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.9'
+version = '1.10'
 
 setup(name='collective.recipe.template',
       version=version,
