@@ -4,6 +4,7 @@ Changelog
 1.11 - Unreleased
 =================
 
+* Python 3 support for Genshi and doctests. [mitchellrj]
 
 1.10 - 2012-02-26
 =================
