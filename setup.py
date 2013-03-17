@@ -1,7 +1,12 @@
 from setuptools import setup, find_packages
 import os
+import sys
 
 version = '1.11'
+
+genshi_requirement = 'Genshi'
+if sys.version_info >= (3,):
+    genshi_requirement = 'Genshi>=0.7.0'
 
 setup(name='collective.recipe.template',
       version=version,
@@ -29,8 +34,8 @@ setup(name='collective.recipe.template',
           'zc.buildout',
       ],
       extras_require=dict(
-        test=['zope.testing'],
-        genshi=['Genshi'],
+        test = ['zope.testing',],
+        genshi = [genshi_requirement,],
         ),
       entry_points="""
       [zc.buildout]
@@ -38,4 +43,8 @@ setup(name='collective.recipe.template',
       genshi = collective.recipe.template.genshitemplate:Recipe
       """,
       use_2to3=True,
+      convert_2to3_doctests=[
+          os.path.join('collective', 'recipe', 'template', 'README.txt'),
+          os.path.join('collective', 'recipe', 'template', 'genshitemplate.txt')
+          ]
       )
