@@ -78,7 +78,7 @@ class Recipe:
     def install(self):
         self.createIntermediatePaths(os.path.dirname(self.output))
         try:
-            os.remove(script_name)
+            os.remove(self.output)
         except OSError:
             pass
         output=open(self.output, "wt")
