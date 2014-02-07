@@ -1,14 +1,16 @@
 Changelog
 *********
 
-1.11 - Unreleased
+1.11 - 2014-02-07
 =================
 
 * Python 3 support for Genshi and doctests.
   [mitchellrj]
+
 * Delete script before writing to it, this way we avoid chmod permission errors
   when the current user is not the script owner.
   [alecghica]
+
 
 1.10 - 2012-02-26
 =================
