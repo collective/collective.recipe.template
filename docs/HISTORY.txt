@@ -4,7 +4,11 @@ Changelog
 1.11 - Unreleased
 =================
 
-* Python 3 support for Genshi and doctests. [mitchellrj]
+* Python 3 support for Genshi and doctests.
+  [mitchellrj]
+* Delete script before writing to it, this way we avoid chmod permission errors
+  when the current user is not the script owner.
+  [alecghica]
 
 1.10 - 2012-02-26
 =================
@@ -16,8 +20,7 @@ Changelog
 1.9 - 2011-06-19
 ================
 
-* Add support for URL input. Use ``url =`` (instead of ``input =``) to specify
-  URL.
+* Add support for URL input. Use ``url =`` (instead of ``input =``) to specify URL.
   [aclark]
 
 
