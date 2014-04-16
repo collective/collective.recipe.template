@@ -5,6 +5,10 @@ import stat
 import urllib2
 import zc.buildout
 
+
+TRUE_VALUES = ('y', 'yes', '1', 'true')
+
+
 class Recipe:
     def __init__(self, buildout, name, options):
         self.buildout=buildout
@@ -30,6 +34,7 @@ class Recipe:
         self.input=options.get("input")
         self.inline=options.get("inline")
         self.url = options.get("url")
+        self.overwrite = options.get("overwrite", 'true').lower() in TRUE_VALUES
         if "inline" in options:
             self.source = self.inline.lstrip()
             self.mode = None
@@ -76,6 +81,9 @@ class Recipe:
         return True
 
     def install(self):
+        if not self.overwrite and os.path.isfile(self.output):
+            return self.options.created()
+
         self.createIntermediatePaths(os.path.dirname(self.output))
         try:
             os.remove(self.output)
@@ -88,7 +96,10 @@ class Recipe:
         if self.mode is not None:
             os.chmod(self.output, self.mode)
 
-        self.options.created(self.output)
+        if self.overwrite:
+            # prevents deleting after execute buildout after modifying buildout.cfg
+            self.options.created(self.output)
+
         return self.options.created()
 
 
