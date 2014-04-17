@@ -40,6 +40,84 @@ The template was indeed created::
 
 The variable ``buildout:directory`` was also substituted by a path.
 
+Overriding output file
+======================
+
+By default re-execute buildout, makes that output file is overwrited, by new
+output file. But, if you want generate this file ONLY when it doesn't exist,
+you can use overwrite option:
+
+Once again check output file content::
+
+  >>> cat('template')
+  #
+  My template knows about buildout path:
+  .../sample-buildout
+
+Let's change this file::
+  >>> print system("sed 's/sample-buildout/spam-ham-eggs/g' template > out && mv out template")
+  <BLANKLINE> 
+
+Let's check content now::
+
+  >>> cat('template')
+  #
+  My template knows about buildout path:
+  .../spam-ham-eggs
+
+Now try re-execute buildout, and then check our file again::
+
+  >>> print system(join('bin', 'buildout')),
+  Updating template.
+
+  >>> cat('template')
+  #
+  My template knows about buildout path:
+  .../sample-buildout
+
+Like you see, re-execute buildout, caused overwrite ourmodified file. Let's try
+to prevent this behavior. So we must modify buildout.cfg, re-execute buildout,
+and then modify again output file::
+
+  >>> write('buildout.cfg',
+  ... '''
+  ... [buildout]
+  ... parts = template
+  ... offline = true
+  ...
+  ... [template]
+  ... recipe = collective.recipe.template
+  ... input = template.in
+  ... output = template
+  ... overwrite = false
+  ... ''')
+
+  >>> print system(join('bin', 'buildout')),
+  Uninstalling template.
+  Installing template.
+
+  >>> cat('template')
+  #
+  My template knows about buildout path:
+  .../sample-buildout
+
+  >>> print system("sed 's/sample-buildout/spam-ham-eggs/g' template > out && mv out template")
+  <BLANKLINE> 
+
+  >>> cat('template')
+  #
+  My template knows about buildout path:
+  .../spam-ham-eggs
+
+Let's check output file again - it shouldn't be modyfied this time::
+
+  >>> print system(join('bin', 'buildout')),
+  Updating template.
+
+  >>> cat('template')
+  #
+  My template knows about buildout path:
+  .../spam-ham-eggs
 
 Using inline input
 ==================
