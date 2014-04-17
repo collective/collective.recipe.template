@@ -6,9 +6,6 @@ import urllib2
 import zc.buildout
 
 
-TRUE_VALUES = ('y', 'yes', '1', 'true')
-
-
 class Recipe:
     def __init__(self, buildout, name, options):
         self.buildout=buildout
@@ -34,7 +31,7 @@ class Recipe:
         self.input=options.get("input")
         self.inline=options.get("inline")
         self.url = options.get("url")
-        self.overwrite = options.get("overwrite", 'true').lower() in TRUE_VALUES
+        self.overwrite = zc.buildout.buildout.bool_option(options, 'overwrite', True)
         if "inline" in options:
             self.source = self.inline.lstrip()
             self.mode = None

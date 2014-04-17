@@ -89,7 +89,7 @@ and then modify again output file::
   ... recipe = collective.recipe.template
   ... input = template.in
   ... output = template
-  ... overwrite = False
+  ... overwrite = false
   ... ''')
 
   >>> print system(join('bin', 'buildout')),
