@@ -4,6 +4,9 @@ Changelog
 1.12 - Unreleased
 =================
 
+* Added overwrite option - possibility to disable overwrite output file after
+  re-execute buildout.
+  [mstaniszczak]
 
 
 1.11 - 2014-02-07
