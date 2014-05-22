@@ -42,7 +42,7 @@ class Recipe:
             self.source=self.input[len('inline:'):].lstrip()
             self.mode=None
         elif "url" in options and self._checkurl():
-            self.source = self.url.read()
+            self.source = self.url.read().decode('utf8')
             self.mode=None
         else:
             # If the error is not from urllib2

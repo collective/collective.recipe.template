@@ -4,6 +4,9 @@ Changelog
 1.12 - Unreleased
 =================
 
+* Fix encoding problem in python 3.
+  [cedricmessiant]
+
 * Added overwrite option - possibility to disable overwrite output file after
   re-execute buildout.
   [mstaniszczak]
