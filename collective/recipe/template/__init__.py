@@ -47,10 +47,10 @@ class Recipe:
         else:
             # If the error is not from urllib2
             if self.url == None:
-                msg="Input file '%s' does not exist." % self.input 
+                msg="Input file '%s' does not exist." % self.input
             else:
                 msg = self.msg
-            self.logger.error(msg) 
+            self.logger.error(msg)
             raise zc.buildout.UserError(msg)
 
         self._execute()
