@@ -40,6 +40,8 @@ Features
 * Starting with version 1.5, you can use inline templates.
 * Starting with version 1.7, you can use `genshi text templates`_.
 * Starting with version 1.9, you can use a URL to specify template input.
+* Starting with version 1.12, you can specify ``timeout`` as an option to
+  configure ``urllib2`` requests.
 
 
 Genshi text templates

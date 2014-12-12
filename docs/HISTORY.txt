@@ -4,6 +4,9 @@ Changelog
 1.12 - Unreleased
 =================
 
+* Add timeout configuration option.
+  [davidjb]
+
 * Fix encoding problem in python 3.
   [cedricmessiant]
 

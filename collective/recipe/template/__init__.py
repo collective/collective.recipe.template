@@ -31,6 +31,7 @@ class Recipe:
         self.input=options.get("input")
         self.inline=options.get("inline")
         self.url = options.get("url")
+        self.timeout = float(options.get("timeout", 1.0))
         self.overwrite = zc.buildout.buildout.bool_option(options, 'overwrite', True)
         if "inline" in options:
             self.source = self.inline.lstrip()
@@ -65,7 +66,7 @@ class Recipe:
 
     def _checkurl(self):
         try:
-            self.url = urllib2.urlopen(self.url, timeout=1)
+            self.url = urllib2.urlopen(self.url, timeout=self.timeout)
         except urllib2.HTTPError, error:
             self.msg = error
             return False
