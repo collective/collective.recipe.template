@@ -4,7 +4,7 @@ import re
 import stat
 import urllib2
 import zc.buildout
-
+from difflib import SequenceMatcher
 
 class Recipe:
     def __init__(self, buildout, name, options):
@@ -83,12 +83,13 @@ class Recipe:
             return self.options.created()
 
         self.createIntermediatePaths(os.path.dirname(self.output))
-        try:
-            os.remove(self.output)
-        except OSError:
-            pass
-        output=open(self.output, "wt")
-        output.write(self.result)
+        output=open(self.output, "a+")
+        output.seek(0)
+        diff=SequenceMatcher(None, output.read(), self.result)
+        if diff.ratio() < 1.0:
+            output.seek(0)
+            output.truncate()
+            output.write(self.result)
         output.close()
 
         if self.mode is not None:
