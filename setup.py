@@ -44,7 +44,7 @@ setup(name='collective.recipe.template',
       """,
       use_2to3=True,
       convert_2to3_doctests=[
-          os.path.join('collective', 'recipe', 'template', 'README.txt'),
-          os.path.join('collective', 'recipe', 'template', 'genshitemplate.txt')
+          os.path.join('collective', 'recipe', 'template', 'README.rst'),
+          os.path.join('collective', 'recipe', 'template', 'genshitemplate.rst')
           ]
       )
