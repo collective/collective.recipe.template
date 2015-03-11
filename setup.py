@@ -11,10 +11,10 @@ if sys.version_info >= (3,):
 setup(name='collective.recipe.template',
       version=version,
       description="Buildout recipe to generate a text file from a template",
-      long_description=open("README.txt").read() + "\n\n" +
+      long_description=open("README.rst").read() + "\n\n" +
                        open(os.path.join("collective", "recipe", "template",
-                                         "README.txt")).read() + "\n\n" +
-                       open(os.path.join("docs", "HISTORY.txt")).read(),
+                                         "README.rst")).read() + "\n\n" +
+                       open(os.path.join("docs", "HISTORY.rst")).read(),
       classifiers=[
           "Framework :: Buildout",
           "Programming Language :: Python",
