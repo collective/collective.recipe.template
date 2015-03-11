@@ -1,2 +1,2 @@
-recursive-include docs *.txt
-recursive-include collective *.txt
+recursive-include docs *.rst
+recursive-include collective *.rst
