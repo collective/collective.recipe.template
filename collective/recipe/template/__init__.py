@@ -65,6 +65,19 @@ class Recipe:
         self.result=self.options._sub(template, [])
 
     def _checkurl(self):
+        auth_user = self.options.get('auth_user')
+        auth_pass = self.options.get('auth_pass')
+        auth_realm = self.options.get('auth_realm')
+
+        if auth_user and auth_pass:
+            auth_handler = urllib2.HTTPBasicAuthHandler()
+            auth_handler.add_password(realm=auth_realm,
+                                      uri=self.url,
+                                      user=auth_user,
+                                      passwd=auth_pass)
+            opener = urllib2.build_opener(auth_handler)
+            urllib2.install_opener(opener)
+
         try:
             self.url = urllib2.urlopen(self.url, timeout=self.timeout)
         except urllib2.HTTPError, error:
