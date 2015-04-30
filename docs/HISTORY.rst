@@ -16,6 +16,9 @@ Changelog
 1.12 - 2015-07-23
 =================
 
+* Added HTTP Basic Auth support for URL
+  [olimpiurob]
+
 * Add timeout configuration option.
   [davidjb]
 

@@ -41,7 +41,9 @@ Features
 * Starting with version 1.7, you can use `genshi text templates`_.
 * Starting with version 1.9, you can use a URL to specify template input.
 * Starting with version 1.12, you can specify ``timeout`` as an option to
-  configure ``urllib2`` requests.
+  configure ``urllib2`` requests. Support for HTTP Basic Auth has also been
+  added. You can now specify ``auth_user``, ``auth_pass`` and ``auth_realm``
+  options.
 
 
 Genshi text templates
