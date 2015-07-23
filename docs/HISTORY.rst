@@ -1,7 +1,7 @@
 Changelog
 *********
 
-1.12 - Unreleased
+1.12 - 2015-07-23
 =================
 
 * Add timeout configuration option.
