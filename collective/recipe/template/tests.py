@@ -1,14 +1,13 @@
 """Test setup for collective.recipe.template.
 """
 
-import os, re
-import pkg_resources
+import re
 
 import zc.buildout.testing
 
+import doctest
 import unittest
-import zope.testing
-from zope.testing import doctest, renormalizing
+from zope.testing import renormalizing
 
 
 def setUp(test):
@@ -29,10 +28,10 @@ checker = renormalizing.RENormalizing([
 
 def test_suite():
     return unittest.TestSuite([
-        doctest.DocFileSuite('README.txt',
+        doctest.DocFileSuite('README.rst',
             setUp=setUp, tearDown=zc.buildout.testing.buildoutTearDown,
             optionflags=doctest.ELLIPSIS, checker=checker),
-        doctest.DocFileSuite('genshitemplate.txt',
+        doctest.DocFileSuite('genshitemplate.rst',
             setUp=setUp, tearDown=zc.buildout.testing.buildoutTearDown,
             optionflags=doctest.ELLIPSIS, checker=checker),
         ])
