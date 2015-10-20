@@ -1,7 +1,7 @@
 Changelog
 *********
 
-1.13 - unreleased
+1.13 (2015-10-20)
 =================
 
 * Back compatibility with zc.buildout 1.7.1 [#11]
