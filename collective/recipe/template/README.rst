@@ -56,7 +56,7 @@ Once again check output file content::
 
 Let's change this file::
   >>> print system("sed 's/sample-buildout/spam-ham-eggs/g' template > out && mv out template")
-  <BLANKLINE> 
+  <BLANKLINE>
 
 Let's check content now::
 
@@ -102,7 +102,7 @@ and then modify again output file::
   .../sample-buildout
 
   >>> print system("sed 's/sample-buildout/spam-ham-eggs/g' template > out && mv out template")
-  <BLANKLINE> 
+  <BLANKLINE>
 
   >>> cat('template')
   #
@@ -214,6 +214,7 @@ Now we can run buildout::
   >>> print system(join('bin', 'buildout')),
   Uninstalling template.
   Installing template.
+  ...
 
 The template should have been created::
 

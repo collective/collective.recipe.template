@@ -30,10 +30,12 @@ def test_suite():
     return unittest.TestSuite([
         doctest.DocFileSuite('README.rst',
             setUp=setUp, tearDown=zc.buildout.testing.buildoutTearDown,
-            optionflags=doctest.ELLIPSIS, checker=checker),
+            optionflags=doctest.ELLIPSIS|doctest.NORMALIZE_WHITESPACE,
+            checker=checker),
         doctest.DocFileSuite('genshitemplate.rst',
             setUp=setUp, tearDown=zc.buildout.testing.buildoutTearDown,
-            optionflags=doctest.ELLIPSIS, checker=checker),
+            optionflags=doctest.ELLIPSIS|doctest.NORMALIZE_WHITESPACE,
+            checker=checker),
         ])
 
 
