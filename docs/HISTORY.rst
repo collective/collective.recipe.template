@@ -7,6 +7,10 @@ Changelog
 * Support new ``input-encoding`` and ``output-encoding`` options.
   [fschulze]
 
+* On update, do not rewrite the output file (thus preserving its
+  modification timestamp) unless its content has changed.
+  [dairiki]
+
 
 2.0 (2017-01-17)
 ================
@@ -20,6 +24,7 @@ Changelog
 
 * Back compatibility with zc.buildout 1.7.1 [#11]
   [mstaniszczak]
+
 
 1.12 - 2015-07-23
 =================
