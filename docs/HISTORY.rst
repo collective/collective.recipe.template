@@ -4,7 +4,9 @@ Changelog
 1.14 (unreleased)
 =================
 
-- Nothing changed yet.
+- On update, do not rewrite the output file (thus preserving its
+  modification timestamp) unless its content has changed.
+  [dairiki]
 
 
 1.13 (2015-10-20)

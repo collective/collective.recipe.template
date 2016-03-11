@@ -105,9 +105,19 @@ class Recipe:
 
 
     def update(self):
-        # Variables in other parts might have changed so we need to do a
+        # Variables in other parts might have changed so we may need to do a
         # full reinstall.
-        return self.install()
+        try:
+            input = open(self.output, "rt")
+        except IOError:
+            result_changed = True
+        else:
+            result_changed = input.read() != self.result
+            input.close()
+
+        if result_changed:
+            # Output has changed, re-write output file
+            return self.install()
 
 
     def createIntermediatePaths(self, path):
