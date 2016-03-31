@@ -88,7 +88,7 @@ class Recipe:
         except OSError:
             pass
         output=open(self.output, "wt")
-        output.write(self.result)
+        output.write(self.result.encode('utf-8'))
         output.close()
 
         if self.mode is not None:
