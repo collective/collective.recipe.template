@@ -7,7 +7,8 @@ class Recipe(Base):
         from genshi.template import Context, NewTextTemplate
         from genshi.template.eval import UndefinedError
 
-        template = NewTextTemplate(self.source)
+        template = NewTextTemplate(
+            self.source, filepath=self.input, filename=self.input)
         context = Context(parts=self.buildout, options=self.options)
         try:
             self.result = template.generate(context).render()
