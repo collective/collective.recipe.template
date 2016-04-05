@@ -3,7 +3,6 @@ import os
 import sys
 
 version = '1.14.dev0'
-
 genshi_requirement = 'Genshi'
 if sys.version_info >= (3,):
     genshi_requirement = 'Genshi>=0.7.0'

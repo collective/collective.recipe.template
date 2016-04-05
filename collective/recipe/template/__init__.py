@@ -62,7 +62,6 @@ class Recipe:
         if "mode" in options:
             self.mode=int(options["mode"], 8)
 
-
     def _execute(self):
         template=re.sub(r"\$\{([^:]+?)\}", r"${%s:\1}" % self.name, self.source)
         self.result=self.options._sub(template, [])
