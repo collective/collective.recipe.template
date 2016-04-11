@@ -2,10 +2,14 @@ Changelog
 *********
 
 1.14 (unreleased)
-=================
+=====================
 
-- Nothing changed yet.
+- Instantiate Genshi text templates assuming an UTF-8 encoding for the source
+  file, decode Buildout-options that are passed to the template into unicode
+  and decode the render result back to UTF-8.
 
+- Instantiate Genshi-based text templates passing on filepath information in
+  order to to have include directive work again.
 
 1.13 (2015-10-20)
 =================
