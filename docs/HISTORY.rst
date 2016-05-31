@@ -4,8 +4,8 @@ Changelog
 1.14 (unreleased)
 =================
 
-- Nothing changed yet.
-
+* Added HTTP Basic Auth support for URL
+  [olimpiurob]
 
 1.13 (2015-10-20)
 =================
@@ -15,9 +15,6 @@ Changelog
 
 1.12 - 2015-07-23
 =================
-
-* Added HTTP Basic Auth support for URL
-  [olimpiurob]
 
 * Add timeout configuration option.
   [davidjb]
