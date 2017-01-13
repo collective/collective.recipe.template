@@ -1,10 +1,11 @@
 Changelog
 *********
 
-1.14 (unreleased)
+2.0 (unreleased)
 =================
 
-- Nothing changed yet.
+* Claim support for Python 3.5 and drop support for Python 2.6.
+   [sallner]
 
 
 1.13 (2015-10-20)
