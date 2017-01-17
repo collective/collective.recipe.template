@@ -4,8 +4,8 @@ Changelog
 2.1 (unreleased)
 ================
 
-- Nothing changed yet.
-
+* Added HTTP Basic Auth support for URL
+  [olimpiurob]
 
 2.0 (2017-01-17)
 ================
