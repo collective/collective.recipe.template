@@ -1,2 +1,10 @@
+include bootstrap.py
+exclude bootstrap.py
+
+exclude buildout.cfg
+include buildout.cfg
+
+exclude MANIFEST.in
+
 recursive-include docs *.rst
 recursive-include collective *.rst
