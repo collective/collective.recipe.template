@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 import os
 import sys
 
-version = '1.14.dev0'
+version = '2.0'
 
 genshi_requirement = 'Genshi'
 if sys.version_info >= (3,):
