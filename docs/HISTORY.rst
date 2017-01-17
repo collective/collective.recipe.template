@@ -5,7 +5,7 @@ Changelog
 =================
 
 * Claim support for Python 3.5 and drop support for Python 2.6.
-   [sallner]
+  [sallner]
 
 
 1.13 (2015-10-20)
