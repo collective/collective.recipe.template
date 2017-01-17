@@ -4,7 +4,9 @@ Changelog
 2.1 (unreleased)
 ================
 
-- Nothing changed yet.
+- On update, do not rewrite the output file (thus preserving its
+  modification timestamp) unless its content has changed.
+  [dairiki]
 
 
 2.0 (2017-01-17)
