@@ -57,8 +57,6 @@ class Recipe:
             self.logger.error(msg)
             raise zc.buildout.UserError(msg)
 
-        self._execute()
-
         if "mode" in options:
             self.mode=int(options["mode"], 8)
 
@@ -82,6 +80,8 @@ class Recipe:
         return True
 
     def install(self):
+        self._execute()
+
         if not self.overwrite and os.path.isfile(self.output):
             return self.options.created()
 
