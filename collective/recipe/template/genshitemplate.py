@@ -7,9 +7,12 @@ class Recipe(Base):
         from genshi.template import Context, NewTextTemplate
         from genshi.template.eval import UndefinedError
 
-        template = NewTextTemplate(self.source)
+        template = NewTextTemplate(
+            self.source,
+            filepath=self.input, filename=self.input)
         context = Context(parts=self.buildout, options=self.options)
         try:
             self.result = template.generate(context).render()
         except UndefinedError, e:
-            raise zc.buildout.UserError("Error in template %s:\n%s" % (self.input, e.msg))
+            raise zc.buildout.UserError(
+                "Error in template {}:\{}".format(self.input, e.msg))
