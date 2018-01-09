@@ -12,7 +12,7 @@ class Recipe(Base):
             filepath=self.input, filename=self.input)
         context = Context(parts=self.buildout, options=self.options)
         try:
-            self.result = template.generate(context).render()
+            self.result = template.generate(context).render(encoding='utf-8')
         except UndefinedError, e:
             raise zc.buildout.UserError(
                 "Error in template {}:\{}".format(self.input, e.msg))
