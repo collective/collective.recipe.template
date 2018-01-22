@@ -1,4 +1,5 @@
 import zc.buildout
+import sys
 from collective.recipe.template import Recipe as Base
 
 
@@ -14,7 +15,9 @@ class Recipe(Base):
         context = Context(parts=self.buildout, options=self.options)
         try:
             self.result = template.generate(
-                context).render(encoding='utf-8').decode('utf-8')
+                context).render(encoding='utf-8')
         except UndefinedError, e:
             raise zc.buildout.UserError(
                 "Error in template {}:\{}".format(self.input, e.msg))
+        if sys.version_info > (2,):
+            self.result = self.result.decode('utf-8')
