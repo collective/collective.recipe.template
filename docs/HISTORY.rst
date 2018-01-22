@@ -4,15 +4,13 @@ Changelog
 2.1 (unreleased)
 ================
 
-- Nothing changed yet.
-
+* Allow Genshi template to include other files.
 
 2.0 (2017-01-17)
 ================
 
 * Claim support for Python 3.5 and drop support for Python 2.6.
   [sallner]
-
 
 1.13 (2015-10-20)
 =================
