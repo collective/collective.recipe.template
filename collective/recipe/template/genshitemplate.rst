@@ -17,6 +17,7 @@ Lets create a minimal `buildout.cfg` file::
   ... input = template.in
   ... output = template
   ... some-option = value
+  ... included-option = included
   ... ''')
 
 We create a template file::
@@ -31,6 +32,14 @@ We create a template file::
   ...   ${parts.buildout['bin-directory']}
   ... To access the current part, use ``options``:
   ...   ${options['some-option']}
+  ... {% include include.in %}
+  ... ''')
+
+We can include a another file::
+  >>> write('include.in',
+  ... '''#
+  ... I am included here as well:
+  ...   ${options['included-option']}
   ... ''')
 
 Now we can run buildout::
@@ -50,5 +59,8 @@ The template was indeed created::
   .../sample-buildout/bin
   To access the current part, use ``options``:
     value
+  #
+  I am included here as well:
+    included
 
 The variable ``buildout:directory`` was also substituted by a path.
