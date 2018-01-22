@@ -62,12 +62,12 @@ class Recipe:
             self.logger.error(msg)
             raise zc.buildout.UserError(msg)
 
-        self._execute()
-
         if "mode" in options:
             self.mode = int(options["mode"], 8)
 
     def _execute(self):
+        self._execute()
+
         template = re.sub(
             r"\$\{([^:]+?)\}", r"${%s:\1}" % self.name, self.source)
         self.result = self.options._sub(template, [])
