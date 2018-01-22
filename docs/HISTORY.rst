@@ -6,6 +6,11 @@ Changelog
 
 * Allow Genshi template to include other files.
 
+* Fix ordering issue when rendering the template. Only do it when the
+  recipe is installed.
+
+* Claim support for Python 3.6.
+
 2.0 (2017-01-17)
 ================
 
