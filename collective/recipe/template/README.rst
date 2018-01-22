@@ -320,16 +320,16 @@ built:
 
   >>> write('dummy.py',
   ... '''
-  ... class Recipe(object):
+  ... class Recipe:
   ...
   ...     def __init__(self, buildout, name, options):
   ...         options['foo'] = 'bar'
   ...
   ...     def install(self):
-  ...         return ()
+  ...         return []
   ...
   ...     def update(self):
-  ...         pass
+  ...         return []
   ... ''')
 
   >>> write('setup.py',
@@ -344,7 +344,7 @@ built:
   ... '''
   ... [buildout]
   ... develop = .
-  ... parts = template
+  ... parts = other template
   ... offline = true
   ...
   ... [template]
