@@ -66,8 +66,6 @@ class Recipe:
             self.mode = int(options["mode"], 8)
 
     def _execute(self):
-        self._execute()
-
         template = re.sub(
             r"\$\{([^:]+?)\}", r"${%s:\1}" % self.name, self.source)
         self.result = self.options._sub(template, [])
@@ -87,6 +85,8 @@ class Recipe:
         return True
 
     def install(self):
+        self._execute()
+
         if not self.overwrite and os.path.isfile(self.output):
             return self.options.created()
 
