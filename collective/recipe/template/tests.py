@@ -2,7 +2,6 @@
 """
 
 import re
-
 import zc.buildout.testing
 
 import doctest
@@ -20,21 +19,23 @@ def setUp(test):
 checker = renormalizing.RENormalizing([
     zc.buildout.testing.normalize_path,
     (re.compile('#![^\n]+\n'), ''),
-    (re.compile('-\S+-py\d[.]\d(-\S+)?.egg'),
-     '-pyN.N.egg',
-    ),
-    ])
+    (re.compile('-\S+-py\d[.]\d(-\S+)?.egg'), '-pyN.N.egg'),
+])
 
 
 def test_suite():
     return unittest.TestSuite([
-        doctest.DocFileSuite('README.rst',
-            setUp=setUp, tearDown=zc.buildout.testing.buildoutTearDown,
-            optionflags=doctest.ELLIPSIS|doctest.NORMALIZE_WHITESPACE,
+        doctest.DocFileSuite(
+            'README.rst',
+            setUp=setUp,
+            tearDown=zc.buildout.testing.buildoutTearDown,
+            optionflags=doctest.ELLIPSIS | doctest.NORMALIZE_WHITESPACE,
             checker=checker),
-        doctest.DocFileSuite('genshitemplate.rst',
-            setUp=setUp, tearDown=zc.buildout.testing.buildoutTearDown,
-            optionflags=doctest.ELLIPSIS|doctest.NORMALIZE_WHITESPACE,
+        doctest.DocFileSuite(
+            'genshitemplate.rst',
+            setUp=setUp,
+            tearDown=zc.buildout.testing.buildoutTearDown,
+            optionflags=doctest.ELLIPSIS | doctest.NORMALIZE_WHITESPACE,
             checker=checker),
         ])
 
