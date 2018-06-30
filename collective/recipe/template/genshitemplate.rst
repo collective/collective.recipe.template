@@ -23,7 +23,7 @@ We create a template file::
 
   >>> write('template.in',
   ... '''#
-  ... My template knows about buildout path:
+  ... My templåte knows about buildout path:
   ...   ${parts.buildout.directory}
   ... You can also write bash/zsh variable expansions by doubling the dollar
   ... sign like this: $${SOME_VARIABLE}
@@ -42,7 +42,7 @@ The template was indeed created::
 
   >>> cat('template')
   #
-  My template knows about buildout path:
+  My templåte knows about buildout path:
   .../sample-buildout
   You can also write bash/zsh variable expansions by doubling the dollar
   sign like this: ${SOME_VARIABLE}

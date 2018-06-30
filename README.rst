@@ -42,7 +42,8 @@ Features
 * Starting with version 1.9, you can use a URL to specify template input.
 * Starting with version 1.12, you can specify ``timeout`` as an option to
   configure ``urllib2`` requests.
-
+* Starting with version 2.1, you can set ``input-encoding`` and
+  ``output-encoding`` to specify the character encoding.
 
 Genshi text templates
 ---------------------

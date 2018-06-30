@@ -13,10 +13,10 @@ setup(
     version=version,
     description="Buildout recipe to generate a text file from a template",
     long_description=(
-        open("README.rst").read() + "\n\n" +
+        open("README.rst", "rb").read().decode("utf-8") + "\n\n" +
         open(os.path.join("collective", "recipe", "template",
-                          "README.rst")).read() + "\n\n" +
-        open(os.path.join("docs", "HISTORY.rst")).read()
+                          "README.rst"), "rb").read().decode("utf-8") + "\n\n" +
+        open(os.path.join("docs", "HISTORY.rst"), "rb").read().decode("utf-8")
     ),
     classifiers=[
         "Framework :: Buildout",

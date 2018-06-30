@@ -2,6 +2,7 @@ import logging
 import os
 import re
 import stat
+import sys
 import urllib2
 import zc.buildout
 
@@ -32,6 +33,8 @@ class Recipe:
 
         self.output=options["output"]
         self.input=options.get("input")
+        self.input_encoding=options.get("input-encoding", "utf-8")
+        self.output_encoding=options.get("output-encoding", "utf-8")
         self.inline=options.get("inline")
         self.url = options.get("url")
         self.timeout = float(options.get("timeout", 1.0))
@@ -40,13 +43,14 @@ class Recipe:
             self.source = self.inline.lstrip()
             self.mode = None
         elif "input" in options and os.path.exists(self.input):
-            self.source=open(self.input).read()
+            with open(self.input, 'rb') as f:
+                self.source = f.read().decode(self.input_encoding)
             self.mode=stat.S_IMODE(os.stat(self.input).st_mode)
         elif "input" in options and self.input.startswith('inline:'):
             self.source=self.input[len('inline:'):].lstrip()
             self.mode=None
         elif "url" in options and self._checkurl():
-            self.source = self.url.read().decode('utf8')
+            self.source = self.url.read().decode(self.input_encoding)
             self.mode=None
         else:
             # If the error is not from urllib2
@@ -64,8 +68,13 @@ class Recipe:
 
 
     def _execute(self):
-        template=re.sub(r"\$\{([^:]+?)\}", r"${%s:\1}" % self.name, self.source)
-        self.result=self.options._sub(template, [])
+        template = self.source
+        if sys.version_info < (3,):
+            template = template.encode('utf-8')
+        template = re.sub(r"\$\{([^:]+?)\}", r"${%s:\1}" % self.name, template)
+        self.result = self.options._sub(template, [])
+        if sys.version_info < (3,):
+            self.result = self.result.decode('utf-8')
 
     def _checkurl(self):
         try:
@@ -90,9 +99,8 @@ class Recipe:
             os.remove(self.output)
         except OSError:
             pass
-        output=open(self.output, "wt")
-        output.write(self.result)
-        output.close()
+        with open(self.output, "wb") as output:
+            output.write(self.result.encode(self.output_encoding))
 
         if self.mode is not None:
             os.chmod(self.output, self.mode)
