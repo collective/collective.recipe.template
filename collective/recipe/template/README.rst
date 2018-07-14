@@ -190,6 +190,8 @@ Using URL input
 
 Similarly, you may want to read input from a URL, e.g.::
 
+  >>> import os
+  >>> tmpfn = os.path.abspath(join('template.in'))
   >>> write('buildout.cfg',
   ... '''
   ... [buildout]
@@ -197,13 +199,13 @@ Similarly, you may want to read input from a URL, e.g.::
   ...
   ... [template]
   ... recipe = collective.recipe.template
-  ... url = file:///tmp/template.in
+  ... url = file://%s
   ... output = template
-  ... ''')
+  ... ''' % tmpfn)
 
 To demonstrate this, first we create a template file::
 
-  >>> write('/tmp/template.in',
+  >>> write(tmpfn,
   ... '''#
   ... My templåte knows about buildout path:
   ...   ${buildout:directory}
@@ -211,17 +213,18 @@ To demonstrate this, first we create a template file::
 
 Now we can run buildout::
 
-  >>> print system(join('bin', 'buildout')),
+  >>> lines = system(join('bin', 'buildout')).splitlines()
+  >>> lines = [x for x in lines if not x.startswith('Not found:')]
+  >>> print '\n'.join(lines),
   Uninstalling template.
   Installing template.
-  ...
 
 The template should have been created::
 
   >>> cat('template')
   #
   My templåte knows about buildout path:
-  .../sample-buildout
+    /sample-buildout
 
 Creating a template in a variable path
 ======================================
