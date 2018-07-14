@@ -375,3 +375,57 @@ built:
   #
   My templåte knows about another buildout part:
   bar
+
+Unchanged output files are not rewritten on update
+==================================================
+
+When output content is unchanged, the output file is not rewritten on update.
+The advantage is that the modification timestamp of the file is not changed.
+(E.g. systemd notices if the timestamp of any unit files change, and issues
+helpful "nags" reminding the user to rerun "systemctl daemon-reload".)
+
+Note the mtime of the output file:
+  >>> from os.path import getmtime
+  >>> from time import sleep
+  >>> orig_mtime = getmtime('template')
+
+Wait until new files get a different mtime
+  >>> def mtime_tick():
+  ...     write('test.stamp', '')
+  ...     return getmtime('test.stamp') > orig_mtime
+  >>> wait_until('mtime_tick', mtime_tick)
+
+Rerun the buildout:
+  >>> print system(join('bin', 'buildout')),
+  Develop: '/sample-buildout/.'
+  Uninstalling other.
+  Installing other.
+  Updating template.
+
+The file's mtime is not changed:
+  >>> getmtime('template') == orig_mtime
+  True
+
+Change the template:
+  >>> write('template.in',
+  ... '''#
+  ... My template still knows about another buildout part:
+  ... Foo is ${other:foo}
+  ... ''')
+
+Rerun the buildout:
+  >>> print system(join('bin', 'buildout')),
+  Develop: '/sample-buildout/.'
+  Uninstalling other.
+  Installing other.
+  Updating template.
+
+The file's mtime is changed:
+  >>> getmtime('template') > orig_mtime
+  True
+
+The output has changed:
+  >>> cat('template')
+  #
+  My template still knows about another buildout part:
+  Foo is bar
