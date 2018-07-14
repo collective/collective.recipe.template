@@ -22,7 +22,7 @@ We create a template file::
 
   >>> write('template.in',
   ... '''#
-  ... My template knows about buildout path:
+  ... My templåte knows about buildout path:
   ...   ${buildout:directory}
   ... ''')
 
@@ -35,7 +35,7 @@ The template was indeed created::
 
   >>> cat('template')
   #
-  My template knows about buildout path:
+  My templåte knows about buildout path:
   .../sample-buildout
 
 The variable ``buildout:directory`` was also substituted by a path.
@@ -51,7 +51,7 @@ Once again check output file content::
 
   >>> cat('template')
   #
-  My template knows about buildout path:
+  My templåte knows about buildout path:
   .../sample-buildout
 
 Let's change this file::
@@ -62,7 +62,7 @@ Let's check content now::
 
   >>> cat('template')
   #
-  My template knows about buildout path:
+  My templåte knows about buildout path:
   .../spam-ham-eggs
 
 Now try re-execute buildout, and then check our file again::
@@ -72,7 +72,7 @@ Now try re-execute buildout, and then check our file again::
 
   >>> cat('template')
   #
-  My template knows about buildout path:
+  My templåte knows about buildout path:
   .../sample-buildout
 
 Like you see, re-execute buildout, caused overwrite ourmodified file. Let's try
@@ -98,7 +98,7 @@ and then modify again output file::
 
   >>> cat('template')
   #
-  My template knows about buildout path:
+  My templåte knows about buildout path:
   .../sample-buildout
 
   >>> print system("sed 's/sample-buildout/spam-ham-eggs/g' template > out && mv out template")
@@ -106,7 +106,7 @@ and then modify again output file::
 
   >>> cat('template')
   #
-  My template knows about buildout path:
+  My templåte knows about buildout path:
   .../spam-ham-eggs
 
 Let's check output file again - it shouldn't be modyfied this time::
@@ -116,7 +116,7 @@ Let's check output file again - it shouldn't be modyfied this time::
 
   >>> cat('template')
   #
-  My template knows about buildout path:
+  My templåte knows about buildout path:
   .../spam-ham-eggs
 
 Using inline input
@@ -190,6 +190,8 @@ Using URL input
 
 Similarly, you may want to read input from a URL, e.g.::
 
+  >>> import os
+  >>> tmpfn = os.path.abspath(join('template.in'))
   >>> write('buildout.cfg',
   ... '''
   ... [buildout]
@@ -197,31 +199,32 @@ Similarly, you may want to read input from a URL, e.g.::
   ...
   ... [template]
   ... recipe = collective.recipe.template
-  ... url = file:///tmp/template.in
+  ... url = file://%s
   ... output = template
-  ... ''')
+  ... ''' % tmpfn)
 
 To demonstrate this, first we create a template file::
 
-  >>> write('/tmp/template.in',
+  >>> write(tmpfn,
   ... '''#
-  ... My template knows about buildout path:
+  ... My templåte knows about buildout path:
   ...   ${buildout:directory}
   ... ''')
 
 Now we can run buildout::
 
-  >>> print system(join('bin', 'buildout')),
+  >>> lines = system(join('bin', 'buildout')).splitlines()
+  >>> lines = [x for x in lines if not x.startswith('Not found:')]
+  >>> print '\n'.join(lines),
   Uninstalling template.
   Installing template.
-  ...
 
 The template should have been created::
 
   >>> cat('template')
   #
-  My template knows about buildout path:
-  .../sample-buildout
+  My templåte knows about buildout path:
+    /sample-buildout
 
 Creating a template in a variable path
 ======================================
@@ -251,7 +254,7 @@ The template was indeed created::
 
   >>> cat('parts', 'template')
   #
-  My template knows about buildout path:
+  My templåte knows about buildout path:
   .../sample-buildout
 
 
@@ -298,7 +301,7 @@ Also creation of several subdirectories is supported::
 
   >>> cat('parts', 'foo', 'bar', 'template')
   #
-  My template knows about buildout path:
+  My templåte knows about buildout path:
   .../sample-buildout
 
 When changes happen to the output path, then the old path is removed
@@ -358,7 +361,7 @@ built:
 
   >>> write('template.in',
   ... '''#
-  ... My template knows about another buildout part:
+  ... My templåte knows about another buildout part:
   ... ${other:foo}
   ... ''')
 
@@ -370,5 +373,5 @@ built:
 
   >>> cat('template')
   #
-  My template knows about another buildout part:
+  My templåte knows about another buildout part:
   bar

@@ -4,7 +4,8 @@ Changelog
 2.1 (unreleased)
 ================
 
-- Nothing changed yet.
+* Support new ``input-encoding`` and ``output-encoding`` options.
+  [fschulze]
 
 
 2.0 (2017-01-17)
