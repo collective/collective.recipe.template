@@ -1,7 +1,7 @@
 Changelog
 *********
 
-2.1 (unreleased)
+2.1 (2018-07-14)
 ================
 
 * Support new ``input-encoding`` and ``output-encoding`` options.
