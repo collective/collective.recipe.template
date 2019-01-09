@@ -32,7 +32,7 @@ setup(
     keywords='template recipe',
     author='Wichert Akkerman',
     author_email='wichert@wiggy.net',
-    url='http://pypi.python.org/pypi/collective.recipe.template',
+    url='https://github.com/collective/collective.recipe.template',
     license='BSD',
     packages=find_packages(exclude=['ez_setup']),
     namespace_packages=['collective', 'collective.recipe'],
