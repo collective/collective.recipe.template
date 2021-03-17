@@ -1,8 +1,8 @@
 Changelog
 *********
 
-2.1 (unreleased)
-================
+2.1+md.6 (2021-03-17)
+=====================
 
 * Allow Genshi template to include other files.
 
