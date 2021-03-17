@@ -11,6 +11,9 @@ Changelog
 
 * Claim support for Python 3.6.
 
+* Allow to override url/input in a buildout part that inherits from another
+  one.
+
 2.0 (2017-01-17)
 ================
 
