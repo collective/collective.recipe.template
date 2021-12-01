@@ -14,13 +14,14 @@ def setUp(test):
     zc.buildout.testing.buildoutSetUp(test)
     zc.buildout.testing.install_develop('collective.recipe.template', test)
     zc.buildout.testing.install('zope.testing', test)
+    zc.buildout.testing.install('six', test)
     zc.buildout.testing.install('Genshi', test)
 
 
 checker = renormalizing.RENormalizing([
     zc.buildout.testing.normalize_path,
     (re.compile('#![^\n]+\n'), ''),
-    (re.compile('-\S+-py\d[.]\d(-\S+)?.egg'),
+    (re.compile(r'-\S+-py\d[.]\d(-\S+)?.egg'),
      '-pyN.N.egg',
     ),
     ])
