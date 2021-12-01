@@ -218,7 +218,6 @@ Now we can run buildout::
   >>> print('\n'.join(lines))
   Uninstalling template.
   Installing template.
-  ...
 
 The template should have been created::
 
@@ -371,7 +370,6 @@ built:
   Uninstalling template.
   Installing other.
   Installing template.
-  ...
 
   >>> cat('template')
   #
@@ -403,7 +401,6 @@ Rerun the buildout:
   Uninstalling other.
   Installing other.
   Updating template.
-  ...
 
 The file's mtime is not changed:
   >>> getmtime('template') == orig_mtime
@@ -422,7 +419,6 @@ Rerun the buildout:
   Uninstalling other.
   Installing other.
   Updating template.
-  ...
 
 The file's mtime is changed:
   >>> getmtime('template') > orig_mtime

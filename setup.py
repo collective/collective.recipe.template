@@ -13,10 +13,12 @@ setup(
     version=version,
     description="Buildout recipe to generate a text file from a template",
     long_description=(
-        open("README.rst", "rb").read().decode("utf-8") + "\n\n" +
-        open(os.path.join("src", "collective", "recipe", "template",
-                          "README.rst"), "rb").read().decode("utf-8") + "\n\n" +
-        open("CHANGES.rst", "rb").read().decode("utf-8")
+        open("README.rst", "rb").read().decode("utf-8")
+        + "\n\n"
+        + open(os.path.join("src", "collective", "recipe", "template",
+                            "README.rst"), "rb").read().decode("utf-8")
+        + "\n\n"
+        + open("CHANGES.rst", "rb").read().decode("utf-8")
     ),
     classifiers=[
         "Framework :: Buildout",
@@ -24,9 +26,12 @@ setup(
         "Programming Language :: Python :: 2",
         "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],
     keywords='template recipe',
@@ -45,7 +50,7 @@ setup(
         'zc.buildout',
     ],
     extras_require=dict(
-        test=['zope.testing', ],
+        test=['zope.testing', 'zope.testrunner'],
         genshi=[genshi_requirement, ],
     ),
     entry_points="""

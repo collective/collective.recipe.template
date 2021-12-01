@@ -23,22 +23,20 @@ checker = renormalizing.RENormalizing([
     (re.compile('#![^\n]+\n'), ''),
     (re.compile(r'-\S+-py\d[.]\d(-\S+)?.egg'),
      '-pyN.N.egg',
-    ),
-    ])
+     ),
+])
 
 
 def test_suite():
     return unittest.TestSuite([
-        doctest.DocFileSuite('README.rst',
+        doctest.DocFileSuite(
+            'README.rst',
             setUp=setUp, tearDown=zc.buildout.testing.buildoutTearDown,
-            optionflags=doctest.ELLIPSIS|doctest.NORMALIZE_WHITESPACE,
+            optionflags=doctest.ELLIPSIS | doctest.NORMALIZE_WHITESPACE,
             checker=checker),
-        doctest.DocFileSuite('genshitemplate.rst',
+        doctest.DocFileSuite(
+            'genshitemplate.rst',
             setUp=setUp, tearDown=zc.buildout.testing.buildoutTearDown,
-            optionflags=doctest.ELLIPSIS|doctest.NORMALIZE_WHITESPACE,
+            optionflags=doctest.ELLIPSIS | doctest.NORMALIZE_WHITESPACE,
             checker=checker),
-        ])
-
-
-if __name__ == '__main__':
-    unittest.main(defaultTest='test_suite')
+    ])
