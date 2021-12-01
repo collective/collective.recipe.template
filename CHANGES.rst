@@ -1,7 +1,7 @@
 Changelog
 *********
 
-2.2 (Unreleased)
+2.2 (2021-12-01)
 ================
 
 * Port code and tests to Python 3 instead of using no longer supported 2to3.
