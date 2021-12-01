@@ -4,7 +4,11 @@ Changelog
 2.2 (Unreleased)
 ================
 
-* Nothing changed yet.
+* Port code and tests to Python 3 instead of using no longer supported 2to3.
+
+* Add support for Python 3.7, 3.8, 3.9, and 3.10.
+
+* Drop support for Python 3.4.
 
 
 2.1 (2018-07-14)

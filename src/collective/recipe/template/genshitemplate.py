@@ -11,5 +11,6 @@ class Recipe(Base):
         context = Context(parts=self.buildout, options=self.options)
         try:
             self.result = template.generate(context).render()
-        except UndefinedError, e:
-            raise zc.buildout.UserError("Error in template %s:\n%s" % (self.input, e.msg))
+        except UndefinedError as e:
+            raise zc.buildout.UserError(
+                "Error in template %s:\n%s" % (self.input, e.msg))

@@ -13,10 +13,12 @@ setup(
     version=version,
     description="Buildout recipe to generate a text file from a template",
     long_description=(
-        open("README.rst", "rb").read().decode("utf-8") + "\n\n" +
-        open(os.path.join("collective", "recipe", "template",
-                          "README.rst"), "rb").read().decode("utf-8") + "\n\n" +
-        open(os.path.join("docs", "HISTORY.rst"), "rb").read().decode("utf-8")
+        open("README.rst", "rb").read().decode("utf-8")
+        + "\n\n"
+        + open(os.path.join("src", "collective", "recipe", "template",
+                            "README.rst"), "rb").read().decode("utf-8")
+        + "\n\n"
+        + open("CHANGES.rst", "rb").read().decode("utf-8")
     ),
     classifiers=[
         "Framework :: Buildout",
@@ -24,9 +26,12 @@ setup(
         "Programming Language :: Python :: 2",
         "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],
     keywords='template recipe',
@@ -34,16 +39,18 @@ setup(
     author_email='wichert@wiggy.net',
     url='https://github.com/collective/collective.recipe.template',
     license='BSD',
-    packages=find_packages(exclude=['ez_setup']),
+    packages=find_packages('src'),
+    package_dir={'': 'src'},
     namespace_packages=['collective', 'collective.recipe'],
     include_package_data=True,
     zip_safe=False,
     install_requires=[
         'setuptools',
+        'six',
         'zc.buildout',
     ],
     extras_require=dict(
-        test=['zope.testing', ],
+        test=['zope.testing', 'zope.testrunner'],
         genshi=[genshi_requirement, ],
     ),
     entry_points="""
@@ -51,10 +58,4 @@ setup(
     default = collective.recipe.template:Recipe
     genshi = collective.recipe.template.genshitemplate:Recipe
     """,
-    use_2to3=True,
-    convert_2to3_doctests=[
-        os.path.join('collective', 'recipe', 'template', 'README.rst'),
-        os.path.join(
-            'collective', 'recipe', 'template', 'genshitemplate.rst')
-    ]
 )

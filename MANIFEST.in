@@ -1,10 +1,10 @@
-include bootstrap.py
-exclude bootstrap.py
-
-exclude buildout.cfg
+# Generated from:
+# https://github.com/zopefoundation/meta/tree/master/config/buildout-recipe
+include *.rst
+include *.txt
 include buildout.cfg
+include tox.ini
+include .coveragerc
 
-exclude MANIFEST.in
-
-recursive-include docs *.rst
-recursive-include collective *.rst
+recursive-include src *.py
+recursive-include src *.rst

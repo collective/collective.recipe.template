@@ -28,7 +28,7 @@ We create a template file::
 
 Now we can run buildout::
 
-  >>> print system(join('bin', 'buildout')),
+  >>> print(system(join('bin', 'buildout')))
   Installing template.
 
 The template was indeed created::
@@ -55,7 +55,7 @@ Once again check output file content::
   .../sample-buildout
 
 Let's change this file::
-  >>> print system("sed 's/sample-buildout/spam-ham-eggs/g' template > out && mv out template")
+  >>> print(system("sed 's/sample-buildout/spam-ham-eggs/g' template > out && mv out template"))
   <BLANKLINE>
 
 Let's check content now::
@@ -67,7 +67,7 @@ Let's check content now::
 
 Now try re-execute buildout, and then check our file again::
 
-  >>> print system(join('bin', 'buildout')),
+  >>> print(system(join('bin', 'buildout')))
   Updating template.
 
   >>> cat('template')
@@ -92,7 +92,7 @@ and then modify again output file::
   ... overwrite = False
   ... ''')
 
-  >>> print system(join('bin', 'buildout')),
+  >>> print(system(join('bin', 'buildout')))
   Uninstalling template.
   Installing template.
 
@@ -101,7 +101,7 @@ and then modify again output file::
   My templåte knows about buildout path:
   .../sample-buildout
 
-  >>> print system("sed 's/sample-buildout/spam-ham-eggs/g' template > out && mv out template")
+  >>> print(system("sed 's/sample-buildout/spam-ham-eggs/g' template > out && mv out template"))
   <BLANKLINE>
 
   >>> cat('template')
@@ -111,7 +111,7 @@ and then modify again output file::
 
 Let's check output file again - it shouldn't be modyfied this time::
 
-  >>> print system(join('bin', 'buildout')),
+  >>> print(system(join('bin', 'buildout')))
   Updating template.
 
   >>> cat('template')
@@ -141,7 +141,7 @@ For very short script it can make sense to put the source directly into
 
 Now we can run buildout::
 
-  >>> print system(join('bin', 'buildout')),
+  >>> print(system(join('bin', 'buildout')))
   Uninstalling template.
   Installing template.
 
@@ -171,7 +171,7 @@ specified manually, which especially makes sense in this case:
 
 Run buildout again ::
 
-  >>> print system(join('bin', 'buildout')),
+  >>> print(system(join('bin', 'buildout')))
   Uninstalling template.
   Installing template.
 
@@ -179,7 +179,7 @@ The template should have the specified file mode::
 
   >>> from os import stat
   >>> from stat import S_IMODE
-  >>> print '%o' % S_IMODE(stat('parts/template').st_mode)
+  >>> print('%o' % S_IMODE(stat('parts/template').st_mode))
   755
 
 Using URL input
@@ -215,7 +215,7 @@ Now we can run buildout::
 
   >>> lines = system(join('bin', 'buildout')).splitlines()
   >>> lines = [x for x in lines if not x.startswith('Not found:')]
-  >>> print '\n'.join(lines),
+  >>> print('\n'.join(lines))
   Uninstalling template.
   Installing template.
 
@@ -246,7 +246,7 @@ happen in a variable path::
 
 Now we can run buildout::
 
-  >>> print system(join('bin', 'buildout')),
+  >>> print(system(join('bin', 'buildout')))
   Uninstalling template.
   Installing template.
 
@@ -276,7 +276,7 @@ then the missing items will be created for us::
   ... output = ${buildout:parts-directory}/etc/template
   ... ''')
 
-  >>> print system(join('bin', 'buildout')),
+  >>> print(system(join('bin', 'buildout')))
   Uninstalling template.
   Installing template.
 
@@ -295,7 +295,7 @@ Also creation of several subdirectories is supported::
   ... output = ${buildout:parts-directory}/foo/bar/template
   ... ''')
 
-  >>> print system(join('bin', 'buildout')),
+  >>> print(system(join('bin', 'buildout')))
   Uninstalling template.
   Installing template.
 
@@ -365,7 +365,7 @@ built:
   ... ${other:foo}
   ... ''')
 
-  >>> print system(join('bin', 'buildout')),
+  >>> print(system(join('bin', 'buildout')))
   Develop: '/sample-buildout/.'
   Uninstalling template.
   Installing other.
@@ -396,7 +396,7 @@ Wait until new files get a different mtime
   >>> wait_until('mtime_tick', mtime_tick)
 
 Rerun the buildout:
-  >>> print system(join('bin', 'buildout')),
+  >>> print(system(join('bin', 'buildout')))
   Develop: '/sample-buildout/.'
   Uninstalling other.
   Installing other.
@@ -414,7 +414,7 @@ Change the template:
   ... ''')
 
 Rerun the buildout:
-  >>> print system(join('bin', 'buildout')),
+  >>> print(system(join('bin', 'buildout')))
   Develop: '/sample-buildout/.'
   Uninstalling other.
   Installing other.

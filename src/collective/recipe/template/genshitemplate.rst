@@ -35,7 +35,7 @@ We create a template file::
 
 Now we can run buildout::
 
-  >>> print system(join('bin', 'buildout')),
+  >>> print(system(join('bin', 'buildout')))
   Installing template.
 
 The template was indeed created::

@@ -3,7 +3,8 @@ import os
 import re
 import stat
 import sys
-import urllib2
+from six.moves import urllib_request
+from six.moves import urllib_error
 import zc.buildout
 
 
@@ -12,50 +13,55 @@ TRUE_VALUES = ('y', 'yes', '1', 'true')
 
 class Recipe:
     def __init__(self, buildout, name, options):
-        self.buildout=buildout
-        self.name=name
-        self.options=options
-        self.logger=logging.getLogger(self.name)
+        self.buildout = buildout
+        self.name = name
+        self.options = options
+        self.logger = logging.getLogger(self.name)
         self.msg = None
 
-        if "input" not in options and "inline" not in options and "url" not in options:
-            self.logger.error("No input file, inline template, or URL specified.")
-            raise zc.buildout.UserError("No input file, inline template, or URL specified.")
+        if ("input" not in options
+                and "inline" not in options
+                and "url" not in options):
+            self.logger.error(
+                "No input file, inline template, or URL specified.")
+            raise zc.buildout.UserError(
+                "No input file, inline template, or URL specified.")
 
         if "output" not in options:
             self.logger.error("No output file specified.")
             raise zc.buildout.UserError("No output file specified.")
 
         if ("input" in options and "inline" in options or
-            "input" in options and "url" in options):
+                "input" in options and "url" in options):
             self.logger.error("Too many input sources.")
             raise zc.buildout.UserError("Too many input sources.")
 
-        self.output=options["output"]
-        self.input=options.get("input")
-        self.input_encoding=options.get("input-encoding", "utf-8")
-        self.output_encoding=options.get("output-encoding", "utf-8")
-        self.inline=options.get("inline")
+        self.output = options["output"]
+        self.input = options.get("input")
+        self.input_encoding = options.get("input-encoding", "utf-8")
+        self.output_encoding = options.get("output-encoding", "utf-8")
+        self.inline = options.get("inline")
         self.url = options.get("url")
         self.timeout = float(options.get("timeout", 1.0))
-        self.overwrite = options.get("overwrite", 'true').lower() in TRUE_VALUES
+        self.overwrite = options.get(
+            "overwrite", 'true').lower() in TRUE_VALUES
         if "inline" in options:
             self.source = self.inline.lstrip()
             self.mode = None
         elif "input" in options and os.path.exists(self.input):
             with open(self.input, 'rb') as f:
                 self.source = f.read().decode(self.input_encoding)
-            self.mode=stat.S_IMODE(os.stat(self.input).st_mode)
+            self.mode = stat.S_IMODE(os.stat(self.input).st_mode)
         elif "input" in options and self.input.startswith('inline:'):
-            self.source=self.input[len('inline:'):].lstrip()
-            self.mode=None
+            self.source = self.input[len('inline:'):].lstrip()
+            self.mode = None
         elif "url" in options and self._checkurl():
             self.source = self.url.read().decode(self.input_encoding)
-            self.mode=None
+            self.mode = None
         else:
             # If the error is not from urllib2
-            if self.url == None:
-                msg="Input file '%s' does not exist." % self.input
+            if self.url is None:
+                msg = "Input file '%s' does not exist." % self.input
             else:
                 msg = self.msg
             self.logger.error(msg)
@@ -64,8 +70,7 @@ class Recipe:
         self._execute()
 
         if "mode" in options:
-            self.mode=int(options["mode"], 8)
-
+            self.mode = int(options["mode"], 8)
 
     def _execute(self):
         template = self.source
@@ -78,14 +83,14 @@ class Recipe:
 
     def _checkurl(self):
         try:
-            self.url = urllib2.urlopen(self.url, timeout=self.timeout)
-        except urllib2.HTTPError, error:
+            self.url = urllib_request.urlopen(self.url, timeout=self.timeout)
+        except urllib_request.HTTPError as error:
             self.msg = error
             return False
-        except urllib2.URLError, error:
+        except urllib_error.URLError as error:
             self.msg = error
             return False
-        except ValueError, error:
+        except ValueError as error:
             self.msg = error
             return False
         return True
@@ -106,11 +111,11 @@ class Recipe:
             os.chmod(self.output, self.mode)
 
         if self.overwrite:
-            # prevents deleting after execute buildout after modifying buildout.cfg
+            # prevents deleting after execute buildout after modifying
+            # buildout.cfg
             self.options.created(self.output)
 
         return self.options.created()
-
 
     def update(self):
         # Variables in other parts might have changed so we may need to do a
@@ -126,7 +131,6 @@ class Recipe:
         if result_changed:
             # Output has changed, re-write output file
             return self.install()
-
 
     def createIntermediatePaths(self, path):
         parent = os.path.dirname(path)
